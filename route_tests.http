@@ -1,0 +1,46 @@
+# using code from https://www.youtube.com/watch?v=RcxvrhQKv8I
+@host = http://127.0.0.1:5000
+
+### ROOT ###
+
+get {{host}}
+
+### USER ###
+
+get {{host}}/users
+
+###
+
+get {{host}}/user/1
+
+### PRODUCT ###
+
+get {{host}}/products
+
+###
+
+get {{host}}/product/types
+
+###
+
+get {{host}}/product/1
+
+###
+
+post {{host}}/product
+Content-Type: application/json
+
+{
+    "name": "Blonde Female Head",
+    "quantity": 4,
+    "description": "A head with long blonde hair and feminine features.",
+    "type": "head"
+}
+
+### ORDER ###
+
+get {{host}}/orders
+
+###
+
+get {{host}}/order/1
