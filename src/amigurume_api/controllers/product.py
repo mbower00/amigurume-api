@@ -9,17 +9,20 @@ class ProductController:
         
     def get_all_products(self):
         with db.session() as session:
-            result = session.scalars(select(Product)).all()
-            return package_result(result)
+            result = session.execute(
+                select(Product, ProductType.type)
+                .join(ProductType, Product.product_type_id == ProductType.id)
+            ).all()
+            return package_result(result, ['type'])
         
     def get_product_types(self):
         with db.session() as session:
-            result = session.scalars(select(ProductType)).all()
+            result = session.execute(select(ProductType)).all()
             return package_result(result)
     
     def get_product(self, id):
         with db.session() as session:
-            result = session.scalars(select(Product).where(Product.id == id)).first()
+            result = session.execute(select(Product).where(Product.id == id)).first()
             return package_result(result)
         
     def add_product(self):
@@ -27,21 +30,23 @@ class ProductController:
         given_type = data['type'].lower().strip()
         
         with db.session() as session:
-            find_type = package_result(session.scalars(
+            # check if given_type exists in db
+            find_type = package_result(session.execute(
                     select(ProductType)
-                    .where(ProductType.name == given_type)
+                    .where(ProductType.type == given_type)
                 ).first())
             type_id = 0
             if find_type:
-                print("type found")
+                # type found
                 type_id = find_type["id"]
             else:
-                print("adding new type")
-                product_type = ProductType(name=given_type)
+                # add new type
+                product_type = ProductType(type=given_type)
                 session.add(product_type)
                 session.commit()
                 type_id = product_type.id
 
+            # add new product with correct type
             product = Product(
                 name = data.get("name"),
                 quantity = data.get("quantity"),

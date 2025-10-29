@@ -14,15 +14,15 @@ get {{host}}/users
 get {{host}}/user/1
 
 ### PRODUCT ###
-
+# get all
 get {{host}}/products
 
 ###
-
+# get get types
 get {{host}}/product/types
 
 ###
-
+# get by ID
 get {{host}}/product/1
 
 ###
@@ -33,7 +33,7 @@ Content-Type: application/json
 {
     "name": "Blonde Female Head",
     "quantity": 4,
-    "description": "A head with long blonde hair and feminine features.",
+    "description": "A head with blonde and feminine features.",
     "type": "head"
 }
 

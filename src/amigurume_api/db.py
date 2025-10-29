@@ -2,7 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 from typing import Optional
 from sqlalchemy import ForeignKey
 from sqlalchemy.types import DateTime
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import ENUM
 
 class Base(DeclarativeBase):
@@ -19,7 +19,7 @@ class User(db.Model):
 
 class ProductType(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str] = mapped_column(unique=True)
+    type: Mapped[str] = mapped_column(unique=True)
 
 class Product(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -34,9 +34,14 @@ class Order(db.Model):
     created = mapped_column(DateTime)
     fulfilled = mapped_column(DateTime, nullable=True)
     user_id = mapped_column(ForeignKey("user.id"))
+    cart = relationship('OrderProduct', back_populates="order")
+    
 
 class OrderProduct(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     product_id = mapped_column(ForeignKey("product.id"))
-    order_group_id = mapped_column(ForeignKey("order.id"))
     quantity: Mapped[int]
+    order_id = mapped_column(ForeignKey("order.id"))
+    order = relationship('Order', back_populates="cart")
+
+# TODO: consider changing the two quantity attrs stock_quantity and order_quantity

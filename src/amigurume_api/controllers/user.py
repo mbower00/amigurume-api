@@ -8,10 +8,10 @@ class UserController:
         
     def get_all_users(self):
         with db.session() as session:
-            result = session.scalars(select(User )).all()
+            result = session.execute(select(User )).all()
             return package_result(result)
     
     def get_user(self, id):
         with db.session() as session:
-            result = session.scalars(select(User).where(User.id == id)).first()
+            result = session.execute(select(User).where(User.id == id)).first()
             return package_result(result)
