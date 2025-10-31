@@ -1,5 +1,4 @@
-from flask import Flask, request
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
 from src.amigurume_api.controllers.product import ProductController
 
 class ProductRouter:
@@ -23,3 +22,11 @@ class ProductRouter:
         @self.app.route("/product", methods=["POST"])
         def add_product():
             return self.controller.add_product()
+        
+        @self.app.route("/product/<int:id>", methods=["PATCH"])
+        def update_product(id):
+            return self.controller.update_product(id)
+        
+        @self.app.route("/product/<int:id>", methods=["DELETE"])
+        def delete_product(id):
+            return self.controller.delete_product(id)

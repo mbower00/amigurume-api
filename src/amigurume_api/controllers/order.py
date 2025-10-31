@@ -1,12 +1,15 @@
 from src.amigurume_api.db import Order, User, OrderProduct, Product, ProductType, db
-from sqlalchemy import select
+from flask import request
+from sqlalchemy import delete, select, update
 from src.amigurume_api.utils import package_result
+from datetime import datetime
 
 class OrderController:
     def __init__(self):
         pass
 
     def _place_products_in_order(self, session, order):
+        if not order: return
         # get the OrderProducts (with Product info)
         order_product_result = session.execute(
             select(OrderProduct, Product, ProductType.type)
@@ -52,3 +55,101 @@ class OrderController:
             self._place_products_in_order(session, order)
 
             return order
+        
+    def get_orders_by_user(self, user_id):
+        with db.session() as session:
+            # Get the user to return
+            user_result = session.execute(
+                select(User)
+                .where(User.id == user_id)
+            ).first()
+            user = package_result(user_result)
+            # Get the orders
+            order_result = session.execute(
+                select(Order)
+                .where(Order.user_id == user_id)
+            ).all()
+            orders = package_result(order_result)
+            # add the products
+            for order in orders:
+                self._place_products_in_order(session, order)
+
+            return {'user': user, 'orders': orders}
+        
+    def add_order(self):
+        data = request.get_json()
+        with db.session() as session:
+            # check that the user exsists
+            if not session.execute(
+                select(User)
+                .where(User.id == data['user_id'])
+            ).first():
+                return {"message": "User not found"}, 400
+            
+            # check that each ordered product:
+            # # exsists
+            # # has enough stock
+            for ordered_product in data["ordered_products"]:
+                product_result = session.execute(
+                    select(Product)
+                    .where(Product.id == ordered_product["id"])
+                ).first()
+                if not product_result:
+                    return {"message": f"Product (id: {ordered_product['id']}) not found"}, 400
+                product = package_result(product_result)
+                if ordered_product['quantity'] > product['stock']:
+                    return {"message": f"Not enough product (id: {ordered_product['id']}) in stock (in stock: {product['stock']}, ordered: {ordered_product['quantity']})" }, 400
+                else:
+                    # store new stock for below update
+                    ordered_product['new_stock'] = product['stock'] - ordered_product['quantity']
+            
+            order_products = []
+
+            # this is a seperate loop so that errors can be caught before updates
+            # update the stock of each ordered product
+            # and populate order_products 
+            for ordered_product in data["ordered_products"]:
+                session.execute(
+                    update(Product)
+                    .where(Product.id == ordered_product['id'])
+                    .values(stock = ordered_product['new_stock'])
+                )
+                order_products.append(OrderProduct(
+                    product_id = ordered_product['id'],
+                    quantity = ordered_product['quantity'],
+                ))
+
+            # create the Order with OrderProducts
+            # TODO: consider allowing created and fulfilled a part of the request
+            order = Order(
+                created = datetime.now(),
+                user_id = data["user_id"],
+                cart = order_products
+            )
+            session.add(order)
+            session.commit()
+            return {"id": order.id}
+        
+    def fulfill_order(self, id):
+        fulfilled = datetime.now()
+        try:
+            to_null = request.args['to-null']
+            if to_null != '0':
+                fulfilled = None
+        except KeyError:
+            pass
+        
+        with db.session() as session:
+            session.execute(
+                update(Order)
+                .where(Order.id == id)
+                .values(fulfilled = fulfilled)
+            )
+            session.commit()
+        
+        msg_suffix = f'fulfilled on {fulfilled.strftime("%m/%d/%Y %I:%M %p")}' if fulfilled else 'set to unfulfilled'
+        return {'message': f'Order (id: {id}) {msg_suffix}'}
+    
+    def delete_order(self, id):
+        # TODO: make this delete an order. associated orderProducts should also be deleted.
+        return "ROUTE NOT SET UP"

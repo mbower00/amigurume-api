@@ -1,8 +1,5 @@
-# using code from https://flask.palletsprojects.com/en/stable/deploying/mod_wsgi/
-# from src.amigurume_api import create_app
-# application = create_app()
-
 # Code below copied from Google AI
+
 import sys
 import os
 

@@ -24,18 +24,18 @@ class ProductType(db.Model):
 class Product(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str]
-    quantity: Mapped[int]
+    stock: Mapped[int]
     description: Mapped[Optional[str]]
     image_path: Mapped[Optional[str]]
     product_type_id = mapped_column(ForeignKey("product_type.id"))
 
+# TODO: handle timezone (right now, it is just assuming GMT)
 class Order(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     created = mapped_column(DateTime)
     fulfilled = mapped_column(DateTime, nullable=True)
     user_id = mapped_column(ForeignKey("user.id"))
     cart = relationship('OrderProduct', back_populates="order")
-    
 
 class OrderProduct(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -43,5 +43,3 @@ class OrderProduct(db.Model):
     quantity: Mapped[int]
     order_id = mapped_column(ForeignKey("order.id"))
     order = relationship('Order', back_populates="cart")
-
-# TODO: consider changing the two quantity attrs stock_quantity and order_quantity

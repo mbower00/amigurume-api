@@ -31,16 +31,66 @@ post {{host}}/product
 Content-Type: application/json
 
 {
-    "name": "Blonde Female Head",
-    "quantity": 4,
+    "name": "Blonde Female Head 2347775",
+    "stock": 4,
     "description": "A head with blonde and feminine features.",
     "type": "head"
 }
 
-### ORDER ###
+###
+# update a product
+patch {{host}}/product/1
+Content-Type: application/json
 
+{
+    "stock": 60,
+    "type": "leg",
+    "name": "white leg"
+}
+
+###
+# delete a product
+delete {{host}}/product/3
+
+### ORDER ###
+# get ALL orders
 get {{host}}/orders
 
 ###
+# get orders from a user
+get {{host}}/orders/user/1
 
+###
+# get order by ID
 get {{host}}/order/1
+
+###
+# post new order
+post {{host}}/order
+Content-Type: application/json
+
+{
+    "user_id": 1,
+    "ordered_products": [
+        {
+            "id": 1,
+            "quantity": 1
+        },
+        {
+            "id": 2,
+            "quantity": 4
+        }
+    ]
+}
+
+###
+# fulfill an order
+patch {{host}}/order/fulfill/1
+
+###
+# unfulfill an order
+patch {{host}}/order/fulfill/1?to-null=1
+
+###
+# delete an order
+delete {{host}}/order/5
