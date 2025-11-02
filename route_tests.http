@@ -23,7 +23,7 @@ get {{host}}/product/types
 
 ###
 # get by ID
-get {{host}}/product/1
+get {{host}}/product/5
 
 ###
 
@@ -31,26 +31,24 @@ post {{host}}/product
 Content-Type: application/json
 
 {
-    "name": "Blonde Female Head 2347775",
-    "stock": 4,
-    "description": "A head with blonde and feminine features.",
-    "type": "head"
+    "name": "Dragon Tail",
+    "stock": 5,
+    "description": "A green dragon plushie tail.",
+    "type": "tail"
 }
 
 ###
 # update a product
-patch {{host}}/product/1
+patch {{host}}/product/5
 Content-Type: application/json
 
 {
-    "stock": 60,
-    "type": "leg",
-    "name": "white leg"
+    "stock": 60
 }
 
 ###
 # delete a product
-delete {{host}}/product/3
+delete {{host}}/product/5
 
 ### ORDER ###
 # get ALL orders
@@ -62,7 +60,7 @@ get {{host}}/orders/user/1
 
 ###
 # get order by ID
-get {{host}}/order/1
+get {{host}}/order/7
 
 ###
 # post new order
@@ -78,19 +76,19 @@ Content-Type: application/json
         },
         {
             "id": 2,
-            "quantity": 4
+            "quantity": 1
         }
     ]
 }
 
 ###
 # fulfill an order
-patch {{host}}/order/fulfill/1
+patch {{host}}/order/fulfill/7
 
 ###
 # unfulfill an order
-patch {{host}}/order/fulfill/1?to-null=1
+patch {{host}}/order/fulfill/7?to-null=1
 
 ###
 # delete an order
-delete {{host}}/order/5
+delete {{host}}/order/7
