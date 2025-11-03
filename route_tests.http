@@ -11,7 +11,15 @@ get {{host}}/users
 
 ###
 
-get {{host}}/user/1
+get {{host}}/user/2
+
+###
+# clearance to admin
+patch {{host}}/user/clearance/2
+
+###
+# clearance to user
+patch {{host}}/user/clearance/2?to-user=1
 
 ### PRODUCT ###
 # get all
@@ -31,7 +39,7 @@ post {{host}}/product
 Content-Type: application/json
 
 {
-    "name": "Dragon Tail",
+    "name": "Dragon Tail2",
     "stock": 5,
     "description": "A green dragon plushie tail.",
     "type": "tail"
@@ -39,7 +47,7 @@ Content-Type: application/json
 
 ###
 # update a product
-patch {{host}}/product/5
+patch {{host}}/product/12
 Content-Type: application/json
 
 {
@@ -48,7 +56,7 @@ Content-Type: application/json
 
 ###
 # delete a product
-delete {{host}}/product/5
+delete {{host}}/product/12
 
 ### ORDER ###
 # get ALL orders
@@ -60,7 +68,7 @@ get {{host}}/orders/user/1
 
 ###
 # get order by ID
-get {{host}}/order/7
+get {{host}}/order/8
 
 ###
 # post new order
@@ -71,11 +79,7 @@ Content-Type: application/json
     "user_id": 1,
     "ordered_products": [
         {
-            "id": 1,
-            "quantity": 1
-        },
-        {
-            "id": 2,
+            "id": 900,
             "quantity": 1
         }
     ]
@@ -87,8 +91,8 @@ patch {{host}}/order/fulfill/7
 
 ###
 # unfulfill an order
-patch {{host}}/order/fulfill/7?to-null=1
+patch {{host}}/order/fulfill/8?to-null=1
 
 ###
 # delete an order
-delete {{host}}/order/7
+delete {{host}}/order/8

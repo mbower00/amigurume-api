@@ -15,3 +15,7 @@ class UserRouter:
         @self.app.route("/user/<int:id>")
         def get_user(id):
             return self.controller.get_user(id)
+        
+        @self.app.route("/user/clearance/<int:id>", methods=["PATCH"])
+        def change_user_clearance(id):
+            return self.controller.change_user_clearance(id)

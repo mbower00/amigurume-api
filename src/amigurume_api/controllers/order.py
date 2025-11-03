@@ -8,26 +8,6 @@ class OrderController:
     def __init__(self):
         pass
 
-    def _place_products_in_order(self, session, order):
-        if not order: return
-        # get the OrderProducts (with Product info)
-        order_product_result = session.execute(
-            select(OrderProduct, Product, ProductType.type)
-            .join(Product, OrderProduct.product_id == Product.id)
-            .join(ProductType, Product.product_type_id == ProductType.id)
-            .where(OrderProduct.order_id == order["id"])
-        ).all()
-        order_products = package_result(order_product_result, ["product", "type"])
-        # adjust type attribute location
-        # TODO: consider changing this to happen above, for efficiency.
-        for order_product in order_products:
-            if order_product["type"]:
-                order_product["product"]["type"] = order_product["type"]
-            del order_product["type"]
-        # add order_products to their Order
-        order["ordered_products"] = order_products
-
-        
     def get_all_orders(self):
         with db.session() as session:
             # Get the Orders (with their User)
@@ -140,16 +120,54 @@ class OrderController:
             pass
         
         with db.session() as session:
-            session.execute(
+            result = session.execute(
                 update(Order)
                 .where(Order.id == id)
                 .values(fulfilled = fulfilled)
+                .returning(Order)
             )
             session.commit()
+            if not result.all():
+                return {'message': 'No order updated.'}, 400
         
         msg_suffix = f'fulfilled on {fulfilled.strftime("%m/%d/%Y %I:%M %p")}' if fulfilled else 'set to unfulfilled'
         return {'message': f'Order (id: {id}) {msg_suffix}'}
     
     def delete_order(self, id):
-        # TODO: make this delete an order. associated orderProducts should also be deleted.
-        return "ROUTE NOT SET UP"
+        with db.session() as session:
+            # Delete all associated orderProducts
+            session.execute(
+                delete(OrderProduct)
+                .where(OrderProduct.order_id == id)
+            )
+            session.commit()
+            # Delete the Order
+            result = session.execute(
+                delete(Order)
+                .where(Order.id == id)
+                .returning(Order)
+            )
+            session.commit()
+            if result.all():
+                return {'message': f'Deleted order (id: {id})'}
+            else:
+                return {'message': 'No order deleted.'}, 400
+    
+    def _place_products_in_order(self, session, order):
+        if not order: return
+        # get the OrderProducts (with Product info)
+        order_product_result = session.execute(
+            select(OrderProduct, Product, ProductType.type)
+            .join(Product, OrderProduct.product_id == Product.id)
+            .join(ProductType, Product.product_type_id == ProductType.id)
+            .where(OrderProduct.order_id == order["id"])
+        ).all()
+        order_products = package_result(order_product_result, ["product", "type"])
+        # adjust type attribute location
+        # TODO: consider changing this to happen above, for efficiency.
+        for order_product in order_products:
+            if order_product["type"]:
+                order_product["product"]["type"] = order_product["type"]
+            del order_product["type"]
+        # add order_products to their Order
+        order["ordered_products"] = order_products

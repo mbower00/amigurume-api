@@ -11,10 +11,6 @@ from src.amigurume_api.utils import package_result
 def create_app():
     app = Flask(__name__)
 
-    # below two lines from https://medium.com/@brodiea19/flask-sqlalchemy-how-to-upload-photos-and-render-them-to-your-webpage-84aa549ab39e
-    # app.config["UPLOAD_EXTENSIONS"] = [".jpg", ".png"]
-    # app.config["UPLOAD_PATH"] = "image_uploads"
-
     # connection string code comes from Google Gemini
     app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2:///amigurume_dev"
 
