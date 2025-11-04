@@ -21,6 +21,27 @@ patch {{host}}/user/clearance/2
 # clearance to user
 patch {{host}}/user/clearance/2?to-user=1
 
+###
+# sign up user
+post {{host}}/user/sign-up
+Content-Type: application/json
+
+{
+    "email": "test@email.com",
+    "password": "testtest",
+    "username": "testtest3"
+}
+
+###
+# log in user
+post {{host}}/user/log-in
+Content-Type: application/json
+
+{
+    "password": "testtest",
+    "username": "testtest3"
+}
+
 ### PRODUCT ###
 # get all
 get {{host}}/products

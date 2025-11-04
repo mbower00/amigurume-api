@@ -19,3 +19,13 @@ class UserRouter:
         @self.app.route("/user/clearance/<int:id>", methods=["PATCH"])
         def change_user_clearance(id):
             return self.controller.change_user_clearance(id)
+        
+        # Using code from https://www.youtube.com/watch?v=aX-ayOb_Aho
+        @self.app.route("/user/sign-up", methods=["POST"])
+        def sign_up_user():
+            return self.controller.sign_up_user()
+        
+        # Using code from https://www.youtube.com/watch?v=aX-ayOb_Aho
+        @self.app.route("/user/log-in", methods=["POST"])
+        def log_in_user():
+            return self.controller.log_in_user()
