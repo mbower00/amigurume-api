@@ -29,7 +29,7 @@ class Product(db.Model):
     name: Mapped[str]
     stock: Mapped[int]
     description: Mapped[Optional[str]]
-    image_path: Mapped[Optional[str]]
+    image_url: Mapped[Optional[str]]
     product_type_id = mapped_column(ForeignKey("product_type.id"))
 
 class Order(db.Model):

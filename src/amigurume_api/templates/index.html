@@ -1,0 +1,145 @@
+<style>
+    span {
+        text-transform: uppercase;
+        color:cornflowerblue;
+        margin-right: 10px;
+    }
+    i {
+        color:brown;
+        margin-left: 10px;
+    }
+    h1, h3 {
+        color: midnightblue;
+    }
+    p {
+        margin-top: 5px;
+    }
+    h5 {
+        margin-bottom: 5px;
+        color:forestgreen;
+    }
+    code {
+        margin-left: 10px;
+        color:darkslategrey;
+    }
+</style>
+
+<h1>Welcome to Amigurume API!</h1>
+
+<h3>User</h3>
+
+<h5>sign up user</h5>
+<p><span>post</span> api.amigurume.me/user/sign-up
+<code>
+{
+    "email": str,
+    "password": str,
+    "username": str
+}
+</code>
+</p>
+
+<h5>log in user</h5>
+<p><span>post</span> api.amigurume.me/user/log-in
+<code>
+{
+    "username": str,
+    "password": str
+}
+</code>
+</p>
+
+<h5>refresh user</h5>
+<p><span>get</span> api.amigurume.me/user/refresh</p>
+
+<h5>log out token</h5>
+<p><span>get</span> api.amigurume.me/user/log-out</p>
+
+<h5>get all users</h5>
+<p><span>get</span> api.amigurume.me/users <i>admin</i></p>
+
+<h5>get user by id</h5>
+<p><span>get</span> api.amigurume.me/user/:id <i>admin</i></p>
+
+<h5>clearance to admin</h5>
+<p><span>patch</span> api.amigurume.me/user/clearance/:id <i>admin</i></p>
+
+<h5>clearance to user</h5>
+<p><span>patch</span> api.amigurume.me/user/clearance/:id?to-user=1 <i>admin</i></p>
+
+<h3>Products</h3>
+
+<h5>get all products</h5>
+<p><span>get</span> api.amigurume.me/products <i>user or admin</i></p>
+
+<h5>get all types</h5>
+<p><span>get</span> api.amigurume.me/product/types <i>user or admin</i></p>
+
+<h5>get product by id</h5>
+<p><span>get</span> api.amigurume.me/product/:id <i>user or admin</i></p>
+
+<h5>add product</h5>
+<p><span>post</span> api.amigurume.me/product <i>admin</i>
+<code>
+{
+    "name": str
+    "stock": int,
+    "description": str,
+    "image_url": str,
+    "type": str
+}
+</code>
+</p>
+
+<h5>update a product</h5>
+<p><span>patch</span> api.amigurume.me/product/:id <i>admin</i>
+<code>
+{
+    "name": str
+    "stock": int,
+    "description": str,
+    "image_url": str,
+    "type": str
+}
+</code>
+</p>
+
+<h5>delete a product</h5>
+<p><span>delete</span> api.amigurume.me/product/:id <i>admin</i></p>
+
+<h3>Orders</h3>
+
+<h5>get all orders</h5>
+<p><span>get</span> api.amigurume.me/orders <i>admin</i></p>
+
+<h5>get orders by user id</h5>
+<p><span>get</span> api.amigurume.me/orders/user/:id <i>admin</i></p>
+
+<h5>get orders for current user</h5>
+<p><span>get</span> api.amigurume.me/orders/my <i>user or admin</i></p>
+
+<h5>get order by id</h5>
+<p><span>get</span> api.amigurume.me/order/:id <i>admin</i></p>
+
+<h5>add order</h5>
+<p><span>post</span> api.amigurume.me/order <i>user or admin</i>
+<code>
+{
+    "ordered_products": [
+        {
+            "id": int,
+            "quantity": int
+        }
+    ]
+}
+</code>
+</p>
+
+<h5>fulfill an order</h5>
+<p><span>patch</span> api.amigurume.me/order/fulfill/:id <i>admin</i></p>
+
+<h5>unfulfill an order</h5>
+<p><span>patch</span> api.amigurume.me/order/fulfill/:id?to-null=1 <i>admin</i></p>
+
+<h5>delete an order</h5>
+<p><span>delete</span> api.amigurume.me/order/:id <i>admin</i></p>

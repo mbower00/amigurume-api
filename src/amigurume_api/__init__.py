@@ -4,6 +4,7 @@
 # - https://github.com/theskumar/python-dotenv#readme
 # - https://www.youtube.com/watch?v=aX-ayOb_Aho
 
+from datetime import timedelta
 import os
 from dotenv import load_dotenv
 from flask import Flask
@@ -21,6 +22,8 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ['DB_STRING']
     # using code from https://flask-jwt-extended.readthedocs.io/en/stable/options.html#jwt-secret-key
     app.config["JWT_SECRET_KEY"] = os.environ['JWT_SECRET_KEY']
+
+    app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)
 
     db.init_app(app)
     jwt.init_app(app)

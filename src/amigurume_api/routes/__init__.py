@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from src.amigurume_api.routes.product import ProductRouter
 from src.amigurume_api.routes.user import UserRouter
@@ -13,8 +13,8 @@ class Router:
     
     def create_all(self):
         @self.app.route("/")
-        def hello():
-            return { "msg" : "hello" }
+        def welcome():
+            return render_template('index.html')
         
         self.product_router.create_all()
         self.user_router.create_all()

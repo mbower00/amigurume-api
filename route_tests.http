@@ -8,30 +8,14 @@
 get {{host}}
 
 ### USER ###
-
-get {{host}}/users
-
-###
-
-get {{host}}/user/2
-
-###
-# clearance to admin
-patch {{host}}/user/clearance/1
-
-###
-# clearance to user
-patch {{host}}/user/clearance/7?to-user=1
-
-###
 # sign up user
 post {{host}}/user/sign-up
 Content-Type: application/json
 
 {
     "email": "test@email.com",
-    "password": "testtest",
-    "username": "testtest3"
+    "password": "d3mon$tration",
+    "username": "testtest"
 }
 
 ###
@@ -40,24 +24,42 @@ post {{host}}/user/log-in
 Content-Type: application/json
 
 {
-    "password": "testtest",
-    "username": "testtest3"
+    "password": "d3mon$tration",
+    "username": "testtest"
 }
 
 ###
 # refresh user
 get {{host}}/user/refresh
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MjQ1MTA2OCwianRpIjoiNGMzMWU4YWEtNWQwZC00MDY0LTk3NjctYjUwN2ZjY2I1MTRiIiwidHlwZSI6InJlZnJlc2giLCJzdWIiOiJ0ZXN0dGVzdDMiLCJuYmYiOjE3NjI0NTEwNjgsImNzcmYiOiJiMzUzODEwZi1jMTIwLTQ1YTgtYjA0My0yMjUyMmFhOWY3MzMiLCJleHAiOjE3NjUwNDMwNjgsImNsZWFyYW5jZSI6InVzZXIifQ.TcJwNHpI_Q0kXCwgZgx1BmNguQ_4Yv7XoBn0VypRcqg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MjQ2MjAzNywianRpIjoiM2EyYWM4NjQtYzY1My00ZTBiLWExNmEtOTMyMmJkOTJkNTgyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3R0ZXN0IiwibmJmIjoxNzYyNDYyMDM3LCJjc3JmIjoiOTcwNWE0ODMtOTM1NS00NTk5LWIxNjItNTc1YTQ0MzJlZjFmIiwiZXhwIjoxNzYyNDYyOTM3LCJjbGVhcmFuY2UiOiJhZG1pbiJ9.EBu9S4w6YwgZFp7m46UTk4IPWMbHuwH064zUpK0zhdA
 
 ###
 # log out token
 get {{host}}/user/log-out
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MjQ1MTA2OCwianRpIjoiNGMzMWU4YWEtNWQwZC00MDY0LTk3NjctYjUwN2ZjY2I1MTRiIiwidHlwZSI6InJlZnJlc2giLCJzdWIiOiJ0ZXN0dGVzdDMiLCJuYmYiOjE3NjI0NTEwNjgsImNzcmYiOiJiMzUzODEwZi1jMTIwLTQ1YTgtYjA0My0yMjUyMmFhOWY3MzMiLCJleHAiOjE3NjUwNDMwNjgsImNsZWFyYW5jZSI6InVzZXIifQ.TcJwNHpI_Q0kXCwgZgx1BmNguQ_4Yv7XoBn0VypRcqg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MjQ2MjAzNywianRpIjoiM2EyYWM4NjQtYzY1My00ZTBiLWExNmEtOTMyMmJkOTJkNTgyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3R0ZXN0IiwibmJmIjoxNzYyNDYyMDM3LCJjc3JmIjoiOTcwNWE0ODMtOTM1NS00NTk5LWIxNjItNTc1YTQ0MzJlZjFmIiwiZXhwIjoxNzYyNDYyOTM3LCJjbGVhcmFuY2UiOiJhZG1pbiJ9.EBu9S4w6YwgZFp7m46UTk4IPWMbHuwH064zUpK0zhdA
+
+###
+# get all users
+get {{host}}/users
+
+###
+# get user by id
+get {{host}}/user/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MjQ2MjAzNywianRpIjoiM2EyYWM4NjQtYzY1My00ZTBiLWExNmEtOTMyMmJkOTJkNTgyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3R0ZXN0IiwibmJmIjoxNzYyNDYyMDM3LCJjc3JmIjoiOTcwNWE0ODMtOTM1NS00NTk5LWIxNjItNTc1YTQ0MzJlZjFmIiwiZXhwIjoxNzYyNDYyOTM3LCJjbGVhcmFuY2UiOiJhZG1pbiJ9.EBu9S4w6YwgZFp7m46UTk4IPWMbHuwH064zUpK0zhdA
+
+###
+# clearance to admin
+patch {{host}}/user/clearance/2
+
+###
+# clearance to user
+patch {{host}}/user/clearance/7?to-user=1
+
 
 ### PRODUCT ###
 # get all
 get {{host}}/products
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MjQ1MTI1NSwianRpIjoiMzFlZGIxZmUtOTM0OC00MDFiLTk0NGEtYjc5YzQyNzkzN2FlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3R0ZXN0MyIsIm5iZiI6MTc2MjQ1MTI1NSwiY3NyZiI6IjgzMzYwYTU2LTA5NjQtNGFkYy1iOTQ2LWNhMTZiN2ZjOGU5MCIsImV4cCI6MTc2MjQ1MjE1NX0.8XA42IVzfvc4XW2sbJAfh3Lpf6b2XGs0CyHowBnTsgY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MjQ2MjAzNywianRpIjoiM2EyYWM4NjQtYzY1My00ZTBiLWExNmEtOTMyMmJkOTJkNTgyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3R0ZXN0IiwibmJmIjoxNzYyNDYyMDM3LCJjc3JmIjoiOTcwNWE0ODMtOTM1NS00NTk5LWIxNjItNTc1YTQ0MzJlZjFmIiwiZXhwIjoxNzYyNDYyOTM3LCJjbGVhcmFuY2UiOiJhZG1pbiJ9.EBu9S4w6YwgZFp7m46UTk4IPWMbHuwH064zUpK0zhdA
 ###
 # get get types
 get {{host}}/product/types
@@ -69,6 +71,7 @@ get {{host}}/product/5
 ###
 
 post {{host}}/product
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MjQ2MjAzNywianRpIjoiM2EyYWM4NjQtYzY1My00ZTBiLWExNmEtOTMyMmJkOTJkNTgyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3R0ZXN0IiwibmJmIjoxNzYyNDYyMDM3LCJjc3JmIjoiOTcwNWE0ODMtOTM1NS00NTk5LWIxNjItNTc1YTQ0MzJlZjFmIiwiZXhwIjoxNzYyNDYyOTM3LCJjbGVhcmFuY2UiOiJhZG1pbiJ9.EBu9S4w6YwgZFp7m46UTk4IPWMbHuwH064zUpK0zhdA
 Content-Type: application/json
 
 {
@@ -94,22 +97,30 @@ delete {{host}}/product/12
 ### ORDER ###
 # get ALL orders
 get {{host}}/orders
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MjQ2MjAzNywianRpIjoiM2EyYWM4NjQtYzY1My00ZTBiLWExNmEtOTMyMmJkOTJkNTgyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3R0ZXN0IiwibmJmIjoxNzYyNDYyMDM3LCJjc3JmIjoiOTcwNWE0ODMtOTM1NS00NTk5LWIxNjItNTc1YTQ0MzJlZjFmIiwiZXhwIjoxNzYyNDYyOTM3LCJjbGVhcmFuY2UiOiJhZG1pbiJ9.EBu9S4w6YwgZFp7m46UTk4IPWMbHuwH064zUpK0zhdA
 
 ###
-# get orders from a user
-get {{host}}/orders/user/1
+# get orders by a user
+get {{host}}/orders/user/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MjQ2MjAzNywianRpIjoiM2EyYWM4NjQtYzY1My00ZTBiLWExNmEtOTMyMmJkOTJkNTgyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3R0ZXN0IiwibmJmIjoxNzYyNDYyMDM3LCJjc3JmIjoiOTcwNWE0ODMtOTM1NS00NTk5LWIxNjItNTc1YTQ0MzJlZjFmIiwiZXhwIjoxNzYyNDYyOTM3LCJjbGVhcmFuY2UiOiJhZG1pbiJ9.EBu9S4w6YwgZFp7m46UTk4IPWMbHuwH064zUpK0zhdA
+
+###
+# get orders for current user
+get {{host}}/orders/my
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MjQ2MjAzNywianRpIjoiM2EyYWM4NjQtYzY1My00ZTBiLWExNmEtOTMyMmJkOTJkNTgyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3R0ZXN0IiwibmJmIjoxNzYyNDYyMDM3LCJjc3JmIjoiOTcwNWE0ODMtOTM1NS00NTk5LWIxNjItNTc1YTQ0MzJlZjFmIiwiZXhwIjoxNzYyNDYyOTM3LCJjbGVhcmFuY2UiOiJhZG1pbiJ9.EBu9S4w6YwgZFp7m46UTk4IPWMbHuwH064zUpK0zhdA
 
 ###
 # get order by ID
-get {{host}}/order/8
+get {{host}}/order/4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MjQ2MjAzNywianRpIjoiM2EyYWM4NjQtYzY1My00ZTBiLWExNmEtOTMyMmJkOTJkNTgyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3R0ZXN0IiwibmJmIjoxNzYyNDYyMDM3LCJjc3JmIjoiOTcwNWE0ODMtOTM1NS00NTk5LWIxNjItNTc1YTQ0MzJlZjFmIiwiZXhwIjoxNzYyNDYyOTM3LCJjbGVhcmFuY2UiOiJhZG1pbiJ9.EBu9S4w6YwgZFp7m46UTk4IPWMbHuwH064zUpK0zhdA
 
 ###
 # post new order
 post {{host}}/order
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MjQ2MjAzNywianRpIjoiM2EyYWM4NjQtYzY1My00ZTBiLWExNmEtOTMyMmJkOTJkNTgyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3R0ZXN0IiwibmJmIjoxNzYyNDYyMDM3LCJjc3JmIjoiOTcwNWE0ODMtOTM1NS00NTk5LWIxNjItNTc1YTQ0MzJlZjFmIiwiZXhwIjoxNzYyNDYyOTM3LCJjbGVhcmFuY2UiOiJhZG1pbiJ9.EBu9S4w6YwgZFp7m46UTk4IPWMbHuwH064zUpK0zhdA
 Content-Type: application/json
 
 {
-    "user_id": 1,
     "ordered_products": [
         {
             "id": 1,
@@ -128,4 +139,5 @@ patch {{host}}/order/fulfill/8?to-null=1
 
 ###
 # delete an order
-delete {{host}}/order/8
+delete {{host}}/order/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MjQ2MjAzNywianRpIjoiM2EyYWM4NjQtYzY1My00ZTBiLWExNmEtOTMyMmJkOTJkNTgyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3R0ZXN0IiwibmJmIjoxNzYyNDYyMDM3LCJjc3JmIjoiOTcwNWE0ODMtOTM1NS00NTk5LWIxNjItNTc1YTQ0MzJlZjFmIiwiZXhwIjoxNzYyNDYyOTM3LCJjbGVhcmFuY2UiOiJhZG1pbiJ9.EBu9S4w6YwgZFp7m46UTk4IPWMbHuwH064zUpK0zhdA

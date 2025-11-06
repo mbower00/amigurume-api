@@ -1,8 +1,11 @@
+# using code from https://www.youtube.com/watch?v=aX-ayOb_Aho
+
 from src.amigurume_api.db import Order, User, OrderProduct, Product, ProductType, db
 from flask import request
 from sqlalchemy import delete, select, update
 from src.amigurume_api.utils import package_result
 from datetime import datetime, timezone
+from flask_jwt_extended import get_jwt_identity
 
 class OrderController:
     def __init__(self):
@@ -18,6 +21,7 @@ class OrderController:
             orders = package_result(order_result, ["user"])
 
             for order in orders:
+                del order['user']['password']
                 self._place_products_in_order(session, order)
 
             return orders
@@ -32,17 +36,21 @@ class OrderController:
             ).first()
             order = package_result(orderResult, ["user"])
 
+            if order:
+                del order['user']['password']
             self._place_products_in_order(session, order)
 
             return order
         
-    def get_orders_by_user(self, user_id):
+    def get_orders_for_user(self, user_id):
         with db.session() as session:
             # Get the user to return
             user_result = session.execute(
                 select(User)
                 .where(User.id == user_id)
             ).first()
+            if not user_result:
+                return {"message": "User not found"}, 400
             user = package_result(user_result)
             # Get the orders
             order_result = session.execute(
@@ -53,18 +61,34 @@ class OrderController:
             # add the products
             for order in orders:
                 self._place_products_in_order(session, order)
-
-            return {'user': user, 'orders': orders}
+        del user['password']
+        return {'user': user, 'orders': orders}
+        
+    def get_orders_for_current_user(self):
+        username = get_jwt_identity()
+        with db.session() as session:
+            # check that the user exsists
+            user_result = session.execute(
+                select(User)
+                .where(User.username == username)
+            ).first()
+            if not user_result:
+                return {"message": "User not found"}, 400
+            user_id = package_result(user_result)['id']
+        return self.get_orders_for_user(user_id)
         
     def add_order(self):
         data = request.get_json()
+        username = get_jwt_identity()
         with db.session() as session:
             # check that the user exsists
-            if not session.execute(
+            user_result = session.execute(
                 select(User)
-                .where(User.id == data['user_id'])
-            ).first():
+                .where(User.username == username)
+            ).first()
+            if not user_result:
                 return {"message": "User not found"}, 400
+            user_id = package_result(user_result)['id']
             
             # check that each ordered product:
             # # exsists
@@ -101,7 +125,7 @@ class OrderController:
 
             # create the Order with OrderProducts
             order = Order(
-                user_id = data["user_id"],
+                user_id = user_id,
                 cart = order_products
             )
             session.add(order)

@@ -16,12 +16,18 @@ class UserController:
     def get_all_users(self):
         with db.session() as session:
             result = session.execute(select(User )).all()
-            return package_result(result)
+            users = package_result(result)
+        for user in users:
+            del user['password']
+        return users
     
     def get_user(self, id):
         with db.session() as session:
             result = session.execute(select(User).where(User.id == id)).first()
-            return package_result(result)
+            user = package_result(result)
+        if user:
+            del user['password']
+        return user
         
     def change_user_clearance(self, id):
         clearance = "admin"
