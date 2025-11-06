@@ -2,7 +2,7 @@ from src.amigurume_api.db import Order, User, OrderProduct, Product, ProductType
 from flask import request
 from sqlalchemy import delete, select, update
 from src.amigurume_api.utils import package_result
-from datetime import datetime
+from datetime import datetime, timezone
 
 class OrderController:
     def __init__(self):
@@ -100,9 +100,7 @@ class OrderController:
                 ))
 
             # create the Order with OrderProducts
-            # TODO: consider allowing created and fulfilled a part of the request
             order = Order(
-                created = datetime.now(),
                 user_id = data["user_id"],
                 cart = order_products
             )
@@ -111,7 +109,7 @@ class OrderController:
             return {"id": order.id}
         
     def fulfill_order(self, id):
-        fulfilled = datetime.now()
+        fulfilled = datetime.now(timezone.utc)
         try:
             to_null = request.args['to-null']
             if to_null != '0':
@@ -130,7 +128,7 @@ class OrderController:
             if not result.all():
                 return {'message': 'No order updated.'}, 400
         
-        msg_suffix = f'fulfilled on {fulfilled.strftime("%m/%d/%Y %I:%M %p")}' if fulfilled else 'set to unfulfilled'
+        msg_suffix = f'fulfilled on {fulfilled.strftime("%m/%d/%Y %I:%M %p")} UTC' if fulfilled else 'set to unfulfilled'
         return {'message': f'Order (id: {id}) {msg_suffix}'}
     
     def delete_order(self, id):

@@ -7,7 +7,8 @@
 import os
 from dotenv import load_dotenv
 from flask import Flask
-from src.amigurume_api.db import db
+from sqlalchemy import select
+from src.amigurume_api.db import db, BlockedToken
 from src.amigurume_api.jwt import jwt
 from src.amigurume_api.routes import Router
 
@@ -23,6 +24,15 @@ def create_app():
 
     db.init_app(app)
     jwt.init_app(app)
+
+    @jwt.token_in_blocklist_loader
+    def check_blocked_token(headers, data):
+        with db.session() as session:
+            return bool(session.execute(
+                select(BlockedToken)
+                .where(BlockedToken.jti == data['jti'])
+            ).first())
+
 
     with app.app_context():
         db.create_all()

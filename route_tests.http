@@ -17,7 +17,7 @@ get {{host}}/user/2
 
 ###
 # clearance to admin
-patch {{host}}/user/clearance/7
+patch {{host}}/user/clearance/1
 
 ###
 # clearance to user
@@ -47,13 +47,17 @@ Content-Type: application/json
 ###
 # refresh user
 get {{host}}/user/refresh
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MjM2NjY5NCwianRpIjoiYzI2ODE0NjgtODA2Yy00MWI3LWI0MWUtNTBjYTdjNjNjMTQ3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3R0ZXN0MyIsIm5iZiI6MTc2MjM2NjY5NCwiY3NyZiI6IjFiNjg5MDA2LWM4ZjEtNDkwZS05MmU2LTMzOTBhODBjMzAxYiIsImV4cCI6MTc2MjM2NzU5NCwiY2xlYXJhbmNlIjoiYWRtaW4ifQ.cVUPntZoWMVREmWynRTemjfBkwK7CtYNFXCAJ719RpM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MjQ1MTA2OCwianRpIjoiNGMzMWU4YWEtNWQwZC00MDY0LTk3NjctYjUwN2ZjY2I1MTRiIiwidHlwZSI6InJlZnJlc2giLCJzdWIiOiJ0ZXN0dGVzdDMiLCJuYmYiOjE3NjI0NTEwNjgsImNzcmYiOiJiMzUzODEwZi1jMTIwLTQ1YTgtYjA0My0yMjUyMmFhOWY3MzMiLCJleHAiOjE3NjUwNDMwNjgsImNsZWFyYW5jZSI6InVzZXIifQ.TcJwNHpI_Q0kXCwgZgx1BmNguQ_4Yv7XoBn0VypRcqg
+
+###
+# log out token
+get {{host}}/user/log-out
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MjQ1MTA2OCwianRpIjoiNGMzMWU4YWEtNWQwZC00MDY0LTk3NjctYjUwN2ZjY2I1MTRiIiwidHlwZSI6InJlZnJlc2giLCJzdWIiOiJ0ZXN0dGVzdDMiLCJuYmYiOjE3NjI0NTEwNjgsImNzcmYiOiJiMzUzODEwZi1jMTIwLTQ1YTgtYjA0My0yMjUyMmFhOWY3MzMiLCJleHAiOjE3NjUwNDMwNjgsImNsZWFyYW5jZSI6InVzZXIifQ.TcJwNHpI_Q0kXCwgZgx1BmNguQ_4Yv7XoBn0VypRcqg
 
 ### PRODUCT ###
 # get all
 get {{host}}/products
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MjM2NTA5OCwianRpIjoiY2U2MjY1YmYtMTJmNi00ZmI5LWJjNjQtYzM0NmVjMzlkYzI3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3R0ZXN0MyIsIm5iZiI6MTc2MjM2NTA5OCwiY3NyZiI6ImEyNzljZDdiLTMxOGEtNGUzNi1hZjg5LTAxMzE2M2IxYzM0ZCIsImV4cCI6MTc2MjM2NTk5OCwiY2xlYXJhbmNlIjoidXNlciJ9.CWaOkpMIy5MSuXzhUyl3pl2EL_6B1MgnpLgzzeYqkxw
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MjQ1MTI1NSwianRpIjoiMzFlZGIxZmUtOTM0OC00MDFiLTk0NGEtYjc5YzQyNzkzN2FlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3R0ZXN0MyIsIm5iZiI6MTc2MjQ1MTI1NSwiY3NyZiI6IjgzMzYwYTU2LTA5NjQtNGFkYy1iOTQ2LWNhMTZiN2ZjOGU5MCIsImV4cCI6MTc2MjQ1MjE1NX0.8XA42IVzfvc4XW2sbJAfh3Lpf6b2XGs0CyHowBnTsgY
 ###
 # get get types
 get {{host}}/product/types
@@ -108,7 +112,7 @@ Content-Type: application/json
     "user_id": 1,
     "ordered_products": [
         {
-            "id": 900,
+            "id": 1,
             "quantity": 1
         }
     ]
@@ -116,7 +120,7 @@ Content-Type: application/json
 
 ###
 # fulfill an order
-patch {{host}}/order/fulfill/7
+patch {{host}}/order/fulfill/1
 
 ###
 # unfulfill an order

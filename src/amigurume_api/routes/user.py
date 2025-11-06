@@ -37,3 +37,8 @@ class UserRouter:
         @jwt_required(refresh=True)
         def refresh_user():
             return self.controller.refresh_user()
+        
+        @self.app.route("/user/log-out")
+        @jwt_required(verify_type=False)
+        def log_out_user():
+            return self.controller.log_out_user()

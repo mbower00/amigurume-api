@@ -1,12 +1,12 @@
 # using code from:
 # - https://www.youtube.com/watch?v=aX-ayOb_Aho
 
-from src.amigurume_api.db import User, db
+from src.amigurume_api.db import User, db, BlockedToken
 from sqlalchemy import select, update
 from src.amigurume_api.utils import package_result
 from flask import request
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity
+from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity, get_jwt
 
 
 class UserController:
@@ -116,7 +116,18 @@ class UserController:
             }
         }
     
+    # using code from https://www.youtube.com/watch?v=aX-ayOb_Aho
     def refresh_user(self):
         username = get_jwt_identity()
         access_token = create_access_token(identity=username)
         return {'access': access_token}
+    
+    # using code from https://www.youtube.com/watch?v=aX-ayOb_Aho
+    def log_out_user(self):
+        jti = get_jwt()['jti']
+        tkn_type = get_jwt()['type']
+        with db.session() as session:
+            blocked_token = BlockedToken(jti = jti)
+            session.add(blocked_token)
+            session.commit()
+            return {'message': f'{tkn_type.capitalize()} token logged out'}
