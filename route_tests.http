@@ -1,4 +1,6 @@
-# using code from https://www.youtube.com/watch?v=RcxvrhQKv8I
+# using code from 
+# - https://www.youtube.com/watch?v=RcxvrhQKv8I
+# - https://marketplace.visualstudio.com/items?itemName=humao.rest-client
 @host = http://127.0.0.1:5000
 
 ### ROOT ###
@@ -15,11 +17,11 @@ get {{host}}/user/2
 
 ###
 # clearance to admin
-patch {{host}}/user/clearance/2
+patch {{host}}/user/clearance/7
 
 ###
 # clearance to user
-patch {{host}}/user/clearance/2?to-user=1
+patch {{host}}/user/clearance/7?to-user=1
 
 ###
 # sign up user
@@ -42,9 +44,15 @@ Content-Type: application/json
     "username": "testtest3"
 }
 
+###
+# refresh user
+get {{host}}/user/refresh
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MjM2NjY5NCwianRpIjoiYzI2ODE0NjgtODA2Yy00MWI3LWI0MWUtNTBjYTdjNjNjMTQ3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3R0ZXN0MyIsIm5iZiI6MTc2MjM2NjY5NCwiY3NyZiI6IjFiNjg5MDA2LWM4ZjEtNDkwZS05MmU2LTMzOTBhODBjMzAxYiIsImV4cCI6MTc2MjM2NzU5NCwiY2xlYXJhbmNlIjoiYWRtaW4ifQ.cVUPntZoWMVREmWynRTemjfBkwK7CtYNFXCAJ719RpM
+
 ### PRODUCT ###
 # get all
 get {{host}}/products
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MjM2NTA5OCwianRpIjoiY2U2MjY1YmYtMTJmNi00ZmI5LWJjNjQtYzM0NmVjMzlkYzI3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3R0ZXN0MyIsIm5iZiI6MTc2MjM2NTA5OCwiY3NyZiI6ImEyNzljZDdiLTMxOGEtNGUzNi1hZjg5LTAxMzE2M2IxYzM0ZCIsImV4cCI6MTc2MjM2NTk5OCwiY2xlYXJhbmNlIjoidXNlciJ9.CWaOkpMIy5MSuXzhUyl3pl2EL_6B1MgnpLgzzeYqkxw
 
 ###
 # get get types

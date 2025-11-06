@@ -6,7 +6,7 @@ from sqlalchemy import select, update
 from src.amigurume_api.utils import package_result
 from flask import request
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import create_access_token, create_refresh_token
+from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity
 
 
 class UserController:
@@ -105,5 +105,18 @@ class UserController:
         # check password
         if not check_password_hash(user['password'], data['password']):
             return {'message': 'Incorrect password'}, 400 
-
-        return 'done'
+        
+        access_token = create_access_token(identity=user['username'], additional_claims={'clearance': user['clearance']})
+        refresh_token = create_refresh_token(identity=user['username'], additional_claims={'clearance': user['clearance']})
+        
+        return {
+            'tokens': {
+                'access': access_token,
+                'refresh': refresh_token
+            }
+        }
+    
+    def refresh_user(self):
+        username = get_jwt_identity()
+        access_token = create_access_token(identity=username)
+        return {'access': access_token}

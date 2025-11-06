@@ -9,9 +9,7 @@ from dotenv import load_dotenv
 from flask import Flask
 from src.amigurume_api.db import db
 from src.amigurume_api.jwt import jwt
-from flask_sqlalchemy import SQLAlchemy
 from src.amigurume_api.routes import Router
-from src.amigurume_api.utils import package_result
 
 def create_app():
     app = Flask(__name__)
@@ -20,6 +18,8 @@ def create_app():
 
     # connection string code comes from Google Gemini
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ['DB_STRING']
+    # using code from https://flask-jwt-extended.readthedocs.io/en/stable/options.html#jwt-secret-key
+    app.config["JWT_SECRET_KEY"] = os.environ['JWT_SECRET_KEY']
 
     db.init_app(app)
     jwt.init_app(app)

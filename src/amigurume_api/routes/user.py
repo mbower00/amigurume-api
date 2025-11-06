@@ -1,6 +1,8 @@
+# Using code from https://www.youtube.com/watch?v=aX-ayOb_Aho
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from src.amigurume_api.controllers.user import UserController
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 class UserRouter:
     def __init__(self, app: Flask):
@@ -29,3 +31,9 @@ class UserRouter:
         @self.app.route("/user/log-in", methods=["POST"])
         def log_in_user():
             return self.controller.log_in_user()
+        
+        # Using code from https://www.youtube.com/watch?v=aX-ayOb_Aho
+        @self.app.route("/user/refresh")
+        @jwt_required(refresh=True)
+        def refresh_user():
+            return self.controller.refresh_user()

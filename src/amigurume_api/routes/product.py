@@ -1,5 +1,7 @@
 from flask import Flask
 from src.amigurume_api.controllers.product import ProductController
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from src.amigurume_api.utils.auth import check_clearance
 
 class ProductRouter:
     def __init__(self, app: Flask):
@@ -8,8 +10,11 @@ class ProductRouter:
 
     def create_all(self):
         @self.app.route("/products")
+        @jwt_required()
         def get_all_products():
-            return self.controller.get_all_products()
+            if check_clearance(get_jwt_identity()):
+                return self.controller.get_all_products()
+            return {'message': 'Admin clearance required'}, 400
 
         @self.app.route("/product/types")
         def get_product_types():
