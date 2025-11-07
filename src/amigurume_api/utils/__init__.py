@@ -59,3 +59,22 @@ def package_result(result, execute_keys = []):
                 raise Exception("execute_keys must define keys for each execute column beyond the first")
         
         return package_row(result)
+
+# using code from https://www.youtube.com/watch?v=aX-ayOb_Aho
+# '.__table__.columns' from chatgpt
+def get_order_by(request, table):
+    order_by = request.args.get('order-by')
+    if not order_by:
+        order_by = 'id'
+    if order_by in table.__table__.columns:
+        return order_by
+    return 'id'
+
+# using code from https://www.youtube.com/watch?v=aX-ayOb_Aho
+def get_direction(request):
+    direction = request.args.get('direction')
+    if not direction:
+        direction = 'asc'
+    if direction in ['asc', 'desc']:
+        return direction
+    return 'asc'

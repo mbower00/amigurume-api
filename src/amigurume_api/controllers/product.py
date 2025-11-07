@@ -1,6 +1,8 @@
+# using code from https://www.youtube.com/watch?v=aX-ayOb_Aho
+
 from flask import request
 from sqlalchemy import delete, select, update
-from src.amigurume_api.utils import package_result
+from src.amigurume_api.utils import package_result, get_order_by, get_direction
 from src.amigurume_api.db import Product, ProductType, db, OrderProduct
 
 class ProductController:
@@ -8,10 +10,13 @@ class ProductController:
         pass
         
     def get_all_products(self):
+        order_by = get_order_by(request, Product)
+        direction = get_direction(request)
         with db.session() as session:
             result = session.execute(
                 select(Product, ProductType.type)
                 .join(ProductType, Product.product_type_id == ProductType.id)
+                .order_by(getattr(getattr(Product, order_by), direction)())
             ).all()
             return package_result(result, ['type'])
         
@@ -39,6 +44,8 @@ class ProductController:
                 name = data.get("name"),
                 stock = data.get("stock"),
                 description = data.get("description"),
+                image_url = data.get("image_url"),
+                price = data.get("price"),
                 product_type_id = type_id
             )
             session.add(product)

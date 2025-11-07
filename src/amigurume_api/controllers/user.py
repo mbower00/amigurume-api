@@ -3,7 +3,7 @@
 
 from src.amigurume_api.db import User, db, BlockedToken
 from sqlalchemy import select, update
-from src.amigurume_api.utils import package_result
+from src.amigurume_api.utils import package_result, get_order_by, get_direction
 from flask import request
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity, get_jwt
@@ -14,8 +14,15 @@ class UserController:
         pass
         
     def get_all_users(self):
+        order_by = get_order_by(request, User)
+        direction = get_direction(request)
+        print(order_by, direction)
+        print(getattr(getattr(User, order_by), direction))
         with db.session() as session:
-            result = session.execute(select(User )).all()
+            result = session.execute(
+                    select(User)
+                    .order_by(getattr(getattr(User, order_by), direction)())
+                ).all()
             users = package_result(result)
         for user in users:
             del user['password']
@@ -83,8 +90,19 @@ class UserController:
                         clearance = 'user')
             session.add(user)
             session.commit()
-            # TODO: return jwt
-            return {'id': user.id, 'username': user.username, 'email': user.email}
+            
+            # create tokens
+            access_token = create_access_token(identity=user.username)
+            refresh_token = create_refresh_token(identity=user.username)
+
+            return {
+                'id': user.id, 
+                'username': user.username, 
+                'email': user.email, 
+                'tokens': {
+                    'access': access_token,
+                    'refresh': refresh_token
+                }}
     
     def log_in_user(self):
         data = request.get_json()
@@ -112,8 +130,9 @@ class UserController:
         if not check_password_hash(user['password'], data['password']):
             return {'message': 'Incorrect password'}, 400 
         
-        access_token = create_access_token(identity=user['username'], additional_claims={'clearance': user['clearance']})
-        refresh_token = create_refresh_token(identity=user['username'], additional_claims={'clearance': user['clearance']})
+        # create tokens
+        access_token = create_access_token(identity=user['username'])
+        refresh_token = create_refresh_token(identity=user['username'])
         
         return {
             'tokens': {

@@ -8,6 +8,14 @@
         color:brown;
         margin-left: 10px;
     }
+    h1 {
+        text-align: center;
+    }
+    main {
+        max-width: 800px;
+        margin: 0 auto;
+        font-size: larger;
+    }
     h1, h3 {
         color: midnightblue;
     }
@@ -20,11 +28,31 @@
     }
     code {
         margin-left: 10px;
-        color:darkslategrey;
+        color:blueviolet;
+    }
+    ul {
+        margin-top: -10px;
+    }
+    li {
+        font-family: monospace;
+        color: goldenrod;
     }
 </style>
 
 <h1>Welcome to Amigurume API!</h1>
+
+<main>
+
+<h3>How to Read These Docs</h3>
+<h5>what the route does</h5>
+<p><span>http method</span> url <i>security clearance</i>
+<code>
+JSON body data
+</code>
+</p>
+<ul>
+    <li>query params</li>
+</ul>
 
 <h3>User</h3>
 
@@ -57,20 +85,28 @@
 
 <h5>get all users</h5>
 <p><span>get</span> api.amigurume.me/users <i>admin</i></p>
+<ul>
+    <li>order-by</li>
+    <li>direction = 'asc' or 'desc'</li>
+</ul>
 
 <h5>get user by id</h5>
 <p><span>get</span> api.amigurume.me/user/:id <i>admin</i></p>
 
-<h5>clearance to admin</h5>
+<h5>set clearance of user (with :id) to admin or user (to-user=1)</h5>
 <p><span>patch</span> api.amigurume.me/user/clearance/:id <i>admin</i></p>
-
-<h5>clearance to user</h5>
-<p><span>patch</span> api.amigurume.me/user/clearance/:id?to-user=1 <i>admin</i></p>
+<ul>
+    <li>to-user = '1'</li>
+</ul>
 
 <h3>Products</h3>
 
 <h5>get all products</h5>
 <p><span>get</span> api.amigurume.me/products <i>user or admin</i></p>
+<ul>
+    <li>order-by</li>
+    <li>direction = 'asc' or 'desc'</li>
+</ul>
 
 <h5>get all types</h5>
 <p><span>get</span> api.amigurume.me/product/types <i>user or admin</i></p>
@@ -111,12 +147,27 @@
 
 <h5>get all orders</h5>
 <p><span>get</span> api.amigurume.me/orders <i>admin</i></p>
+<ul>
+    <li>order-by</li>
+    <li>direction = 'asc' or 'desc'</li>
+    <li>filter = 'fulfilled' or 'unfulfilled'</li>
+</ul>
 
 <h5>get orders by user id</h5>
 <p><span>get</span> api.amigurume.me/orders/user/:id <i>admin</i></p>
+<ul>
+    <li>order-by</li>
+    <li>direction = 'asc' or 'desc'</li>
+    <li>filter = 'fulfilled' or 'unfulfilled'</li>
+</ul>
 
 <h5>get orders for current user</h5>
 <p><span>get</span> api.amigurume.me/orders/my <i>user or admin</i></p>
+<ul>
+    <li>order-by</li>
+    <li>direction = 'asc' or 'desc'</li>
+    <li>filter = 'fulfilled' or 'unfulfilled'</li>
+</ul>
 
 <h5>get order by id</h5>
 <p><span>get</span> api.amigurume.me/order/:id <i>admin</i></p>
@@ -135,11 +186,13 @@
 </code>
 </p>
 
-<h5>fulfill an order</h5>
+<h5>fulfill or unfulfill (to-null=1) the order (with :id)</h5>
 <p><span>patch</span> api.amigurume.me/order/fulfill/:id <i>admin</i></p>
-
-<h5>unfulfill an order</h5>
-<p><span>patch</span> api.amigurume.me/order/fulfill/:id?to-null=1 <i>admin</i></p>
+<ul>
+    <li>to-null = '1'</li>
+</ul>
 
 <h5>delete an order</h5>
 <p><span>delete</span> api.amigurume.me/order/:id <i>admin</i></p>
+
+</main>

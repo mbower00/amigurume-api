@@ -23,7 +23,8 @@ def create_app():
     # using code from https://flask-jwt-extended.readthedocs.io/en/stable/options.html#jwt-secret-key
     app.config["JWT_SECRET_KEY"] = os.environ['JWT_SECRET_KEY']
 
-    app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)
+    # code from chatgpt
+    app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(hours=30)
 
     db.init_app(app)
     jwt.init_app(app)

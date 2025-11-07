@@ -2,8 +2,8 @@
 
 from src.amigurume_api.db import Order, User, OrderProduct, Product, ProductType, db
 from flask import request
-from sqlalchemy import delete, select, update
-from src.amigurume_api.utils import package_result
+from sqlalchemy import delete, select, update, and_
+from src.amigurume_api.utils import package_result, get_order_by, get_direction
 from datetime import datetime, timezone
 from flask_jwt_extended import get_jwt_identity
 
@@ -12,11 +12,16 @@ class OrderController:
         pass
 
     def get_all_orders(self):
+        order_by = get_order_by(request, Order)
+        direction = get_direction(request)
+        filter_func = self._get_filter()
         with db.session() as session:
             # Get the Orders (with their User)
             order_result = session.execute(
                 select(Order, User)
                 .join(User, Order.user_id == User.id)
+                .where(filter_func())
+                .order_by(getattr(getattr(Order, order_by), direction)())
             ).all()
             orders = package_result(order_result, ["user"])
 
@@ -43,6 +48,9 @@ class OrderController:
             return order
         
     def get_orders_for_user(self, user_id):
+        order_by = get_order_by(request, Order)
+        direction = get_direction(request)
+        filter_func = self._get_filter()
         with db.session() as session:
             # Get the user to return
             user_result = session.execute(
@@ -55,7 +63,11 @@ class OrderController:
             # Get the orders
             order_result = session.execute(
                 select(Order)
-                .where(Order.user_id == user_id)
+                .where(and_(
+                    Order.user_id == user_id,
+                    filter_func()
+                ))
+                .order_by(getattr(getattr(Order, order_by), direction)())
             ).all()
             orders = package_result(order_result)
             # add the products
@@ -193,3 +205,17 @@ class OrderController:
             del order_product["type"]
         # add order_products to their Order
         order["ordered_products"] = order_products
+    
+    def _get_filter(self):
+        # filter_arg = request.args.get('filter')
+        # if filter_arg:
+        #     if filter_arg not in ['fulfilled', 'unfulfilled']:
+        #         filter_arg = None
+        # return filter_arg
+        filter_arg = request.args.get('filter')
+        filter_func = lambda : True
+        if filter_arg == 'fulfilled':
+            filter_func = lambda : Order.fulfilled != None
+        if filter_arg == 'unfulfilled':
+            filter_func = lambda : Order.fulfilled == None
+        return filter_func

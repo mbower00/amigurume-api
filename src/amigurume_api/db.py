@@ -3,7 +3,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from typing import Optional
 from sqlalchemy import ForeignKey
-from sqlalchemy.types import DateTime
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import ENUM, TIMESTAMP
 from datetime import datetime, timezone
@@ -28,6 +27,7 @@ class Product(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str]
     stock: Mapped[int]
+    price: Mapped[float]
     description: Mapped[Optional[str]]
     image_url: Mapped[Optional[str]]
     product_type_id = mapped_column(ForeignKey("product_type.id"))
