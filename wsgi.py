@@ -11,6 +11,12 @@ import os
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, PROJECT_ROOT)
 
+# using code from
+# - https://github.com/theskumar/python-dotenv#readme
+# - chatgpt
+from dotenv import load_dotenv
+load_dotenv()
+
 from src.amigurume_api import create_app
 
 application = create_app()

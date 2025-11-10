@@ -6,7 +6,6 @@
 
 from datetime import timedelta
 import os
-from dotenv import load_dotenv
 from flask import Flask
 from sqlalchemy import select
 from src.amigurume_api.db import db, BlockedToken
@@ -15,8 +14,6 @@ from src.amigurume_api.routes import Router
 
 def create_app():
     app = Flask(__name__)
-
-    load_dotenv()
 
     # connection string code comes from Google Gemini
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ['DB_STRING']
