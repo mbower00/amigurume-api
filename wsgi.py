@@ -11,9 +11,7 @@ import os
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, PROJECT_ROOT)
 
-# using code from
-# - https://github.com/theskumar/python-dotenv#readme
-# - chatgpt
+# below two lines copied from chatgpt
 from dotenv import load_dotenv
 load_dotenv(os.path.join(PROJECT_ROOT, ".env"))
 
