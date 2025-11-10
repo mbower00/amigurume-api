@@ -15,7 +15,7 @@ sys.path.insert(0, PROJECT_ROOT)
 # - https://github.com/theskumar/python-dotenv#readme
 # - chatgpt
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv(os.path.join(PROJECT_ROOT, ".env"))
 
 from src.amigurume_api import create_app
 
