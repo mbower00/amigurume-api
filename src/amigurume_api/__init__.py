@@ -3,17 +3,20 @@
 # - https://flask.palletsprojects.com/en/stable/tutorial/factory/
 # - https://github.com/theskumar/python-dotenv#readme
 # - https://www.youtube.com/watch?v=aX-ayOb_Aho
+# - https://flask-cors.readthedocs.io/en/latest/
 
-from datetime import timedelta
 import os
-from flask import Flask
+from flask import Flask, request
 from sqlalchemy import select
 from src.amigurume_api.db import db, BlockedToken
 from src.amigurume_api.jwt import jwt
 from src.amigurume_api.routes import Router
+from flask_cors import CORS
 
 def create_app():
     app = Flask(__name__)
+
+    CORS(app)
 
     # connection string code comes from Google Gemini
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ['DB_STRING']
