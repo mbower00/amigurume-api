@@ -135,6 +135,8 @@ class UserController:
         refresh_token = create_refresh_token(identity=user['username'])
         
         return {
+            'username': user['username'],
+            'clearance': user['clearance'],
             'tokens': {
                 'access': access_token,
                 'refresh': refresh_token

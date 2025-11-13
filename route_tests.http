@@ -1,9 +1,9 @@
 # using code from 
 # - https://www.youtube.com/watch?v=RcxvrhQKv8I
 # - https://marketplace.visualstudio.com/items?itemName=humao.rest-client
-@host = http://127.0.0.1:5000
-@access = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MjgwNTkzNSwianRpIjoiNmUzNTFjZDMtMWM4OS00YzQzLWE5NWEtNTA1YTc5MmM1ZGMyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Im1ib3dlciIsIm5iZiI6MTc2MjgwNTkzNSwiY3NyZiI6IjhlY2VhN2RmLWY1NjgtNDdjMC04NDgwLWJmZTM2MGMxNzNmZCIsImV4cCI6MTc2MjgwNjgzNX0.4tX4sGcmYFNz8fXf0UGTljUGZD36zvjQhsumKjwmK7I
-@refresh = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MjgwNTg5OCwianRpIjoiY2FlYzkwMmQtMWIwOS00NTE0LThkYjUtNWUxNTlkZWZlNWJiIiwidHlwZSI6InJlZnJlc2giLCJzdWIiOiJtYm93ZXIiLCJuYmYiOjE3NjI4MDU4OTgsImNzcmYiOiI1YWNmNzZlMi04YzhjLTRiYjEtYTVhMS0yNzM4ODUyMzA4OWUiLCJleHAiOjE3NjUzOTc4OTh9.fXcsynpy2ipztqJp0mDwUIGsTOjxMX8LmaNjlISyLA0
+@host = https://api.amigurume.me
+@access = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MzA1Mjc1MiwianRpIjoiNGFjYTQ3ZTYtNjE0Zi00MWZmLTkxODItZDE3YjU1MWNjY2U3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Im1ib3dlciIsIm5iZiI6MTc2MzA1Mjc1MiwiY3NyZiI6IjdkMmZmOTMzLTUzZTMtNDQzZi1iYzkyLTkzYzBkYjU5NGQwZSIsImV4cCI6MTc2MzA1MzY1Mn0.V9xZbZxa1TU-yVloEYxFAgXsXQQCU4TbJHWa_HxNizc
+@refresh = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MzA1MjgzMSwianRpIjoiOTZhZjcxZGEtNjI1NC00YjE0LWIzN2QtMDY0Zjc1ZDg2ODU3IiwidHlwZSI6InJlZnJlc2giLCJzdWIiOiJtYm93ZXIiLCJuYmYiOjE3NjMwNTI4MzEsImNzcmYiOiIyMTYzY2ZkZS02NWY4LTQzYzEtOWZmNy0xMDcyZmI3MjkyYzMiLCJleHAiOjE3NjU2NDQ4MzF9.ntU8u1eQkY8usFqIoe2Nf9wJNekn1uwgTTdq2VqIiZQ
 
 ### ROOT ###
 
@@ -41,7 +41,7 @@ Authorization: Bearer {{refresh}}
 ###
 # log out token
 get {{host}}/user/log-out
-Authorization: Bearer {{access}}
+Authorization: Bearer {{refresh}}
 
 ###
 # get all users
