@@ -150,7 +150,7 @@ class UserController:
         refresh = decode_token(request.cookies.get('refresh'))
         print(refresh)
         print()
-        print(decode_token('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MzA1Mjc1MiwianRpIjoiNGFjYTQ3ZTYtNjE0Zi00MWZmLTkxODItZDE3YjU1MWNjY2U3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Im1ib3dlciIsIm5iZiI6MTc2MzA1Mjc1MiwiY3NyZiI6IjdkMmZmOTMzLTUzZTMtNDQzZi1iYzkyLTkzYzBkYjU5NGQwZSIsImV4cCI6MTc2MzA1MzY1Mn0.V9xZbZxa1TU-yVloEYxFAgXsXQQCU4TbJHWa_HxNizc'))
+        print(decode_token('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6Z…E3OX0.WATcin6VAxbj1PYfrGJmxxjaHOw1_brRAPSvuepgPsw'))
         return {'message': 'ok'}
         username = refresh['sub']
         with db.session() as session:
