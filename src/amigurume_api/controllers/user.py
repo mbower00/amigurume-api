@@ -166,7 +166,7 @@ class UserController:
                 .where(BlockedToken.jti == jti)
             ).first()
             if find_blocked_token_result:
-                return {'message': 'Token as been logged out.'}
+                return {'message': 'Token as been logged out.'}, 400
 
             find_user_result = session.execute(
                 select(User)
