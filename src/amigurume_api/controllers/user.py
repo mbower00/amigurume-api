@@ -1,5 +1,7 @@
 # using code from:
 # - https://www.youtube.com/watch?v=aX-ayOb_Aho
+# - https://docs.python.org/3/library/time.html
+# - https://docs.python.org/3/library/calendar.html#calendar.timegm
 
 from src.amigurume_api.db import User, db, BlockedToken
 from sqlalchemy import select, update
@@ -8,6 +10,8 @@ from flask import request
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity, get_jwt, decode_token
 from flask import make_response
+from time import gmtime
+from calendar import timegm
 
 
 class UserController:
@@ -148,16 +152,28 @@ class UserController:
     # using code from https://www.youtube.com/watch?v=aX-ayOb_Aho
     def refresh_user(self):
         refresh = decode_token(request.cookies.get('refresh'))
+
         if refresh['type'] != 'refresh':
-            return {'message': 'Token must be type: refresh.'}
+            return {'message': 'Token must be type: refresh.'}, 400
+        if timegm(gmtime()) > refresh['exp']:
+            return {'message': 'Token expired.'}, 400
+
         username = refresh['sub']
+        jti = refresh['jti']
         with db.session() as session:
+            find_blocked_token_result = session.execute(
+                select(BlockedToken)
+                .where(BlockedToken.jti == jti)
+            ).first()
+            if find_blocked_token_result:
+                return {'message': 'Token as been logged out.'}
+
             find_user_result = session.execute(
                 select(User)
                 .where(User.username == username)
             ).first()
             if not find_user_result:
-                return {'message': f'No user for token'}, 400
+                return {'message': 'No user for token'}, 400
             user = package_result(find_user_result)
         access_token = create_access_token(identity=username)
         return {'access': access_token, 'username': user['username'], 'clearance': user['clearance']}
