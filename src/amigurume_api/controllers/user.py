@@ -17,8 +17,8 @@ class UserController:
     def get_all_users(self):
         order_by = get_order_by(request, User)
         direction = get_direction(request)
-        print(order_by, direction)
-        print(getattr(getattr(User, order_by), direction))
+        # print(order_by, direction)
+        # print(getattr(getattr(User, order_by), direction))
         with db.session() as session:
             result = session.execute(
                     select(User)
@@ -148,10 +148,8 @@ class UserController:
     # using code from https://www.youtube.com/watch?v=aX-ayOb_Aho
     def refresh_user(self):
         refresh = decode_token(request.cookies.get('refresh'))
-        print(refresh)
-        print()
-        print(decode_token('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6Z…E3OX0.WATcin6VAxbj1PYfrGJmxxjaHOw1_brRAPSvuepgPsw'))
-        return {'message': 'ok'}
+        if refresh['type'] != 'refresh':
+            return {'message': 'Token must be type: refresh.'}
         username = refresh['sub']
         with db.session() as session:
             find_user_result = session.execute(
@@ -166,10 +164,12 @@ class UserController:
     
     # using code from https://www.youtube.com/watch?v=aX-ayOb_Aho
     def log_out_user(self):
-        jti = get_jwt()['jti']
-        tkn_type = get_jwt()['type']
+        refresh = decode_token(request.cookies.get('refresh'))
+        access = get_jwt()
         with db.session() as session:
-            blocked_token = BlockedToken(jti = jti)
-            session.add(blocked_token)
+            blocked_access_token = BlockedToken(jti = access['jti'])
+            session.add(blocked_access_token)
+            blocked_refresh_token = BlockedToken(jti = refresh['jti'])
+            session.add(blocked_refresh_token)
             session.commit()
-            return {'message': f'{tkn_type.capitalize()} token logged out'}
+            return {'message': f'{get_jwt()['type']} and {refresh['type']} tokens logged out'}
