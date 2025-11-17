@@ -172,4 +172,4 @@ class UserController:
             blocked_refresh_token = BlockedToken(jti = refresh['jti'])
             session.add(blocked_refresh_token)
             session.commit()
-            return {'message': f'{access['type']} and {refresh['type']} tokens logged out'}
+            return {'message': f'{access["type"]} and {refresh["type"]} tokens logged out'}
