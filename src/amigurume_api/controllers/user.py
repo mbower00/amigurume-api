@@ -142,7 +142,7 @@ class UserController:
             'cookie': request.cookies.get('refresh')
         })
         # using code copied from chatGPT https://chatgpt.com/c/691342fc-371c-832d-8eb1-71fcadf5972f
-        res.set_cookie('refresh', refresh_token, samesite='None', secure=True)
+        res.set_cookie('refresh', refresh_token, samesite='None', secure=True, httponly=True)
         return res
     
     # using code from https://www.youtube.com/watch?v=aX-ayOb_Aho
