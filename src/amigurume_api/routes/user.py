@@ -1,6 +1,5 @@
 # Using code from https://www.youtube.com/watch?v=aX-ayOb_Aho
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from src.amigurume_api.controllers.user import UserController
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from src.amigurume_api.utils.auth import check_clearance

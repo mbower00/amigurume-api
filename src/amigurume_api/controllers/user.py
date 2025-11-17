@@ -7,6 +7,7 @@ from src.amigurume_api.utils import package_result, get_order_by, get_direction
 from flask import request
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity, get_jwt
+from flask import make_response
 
 
 class UserController:
@@ -134,14 +135,15 @@ class UserController:
         access_token = create_access_token(identity=user['username'])
         refresh_token = create_refresh_token(identity=user['username'])
         
-        return {
+        res = make_response({
             'username': user['username'],
             'clearance': user['clearance'],
-            'tokens': {
-                'access': access_token,
-                'refresh': refresh_token
-            }
-        }
+            'access': access_token,
+            'cookie': request.cookies.get('refresh')
+        })
+        # using code copied from chatGPT https://chatgpt.com/c/691342fc-371c-832d-8eb1-71fcadf5972f
+        res.set_cookie('refresh', refresh_token, samesite='None', secure=True)
+        return res
     
     # using code from https://www.youtube.com/watch?v=aX-ayOb_Aho
     def refresh_user(self):
