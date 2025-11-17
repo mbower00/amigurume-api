@@ -44,11 +44,10 @@ class UserRouter:
         
         # Using code from https://www.youtube.com/watch?v=aX-ayOb_Aho
         @self.app.route("/user/refresh")
-        @jwt_required(refresh=True)
         def refresh_user():
             return self.controller.refresh_user()
         
         @self.app.route("/user/log-out")
-        @jwt_required(verify_type=False)
+        @jwt_required()
         def log_out_user():
             return self.controller.log_out_user()

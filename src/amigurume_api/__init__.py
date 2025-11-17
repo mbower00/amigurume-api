@@ -16,6 +16,7 @@ from flask_cors import CORS
 def create_app():
     app = Flask(__name__)
 
+    # TODO: change this for prod
     # using code copied from chatGPT https://chatgpt.com/c/691342fc-371c-832d-8eb1-71fcadf5972f
     CORS(app, origins=["http://localhost:5173"], supports_credentials=True)
 
