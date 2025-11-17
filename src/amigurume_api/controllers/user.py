@@ -150,17 +150,18 @@ class UserController:
         refresh = request.cookies.get('refresh')
         refresh = decode_token(refresh)
         print(refresh)
-        username = get_jwt_identity()
-        with db.session() as session:
-            find_user_result = session.execute(
-                select(User)
-                .where(User.username == username)
-            ).first()
-            if not find_user_result:
-                return {'message': f'No user for token'}, 400
-            user = package_result(find_user_result)
-        access_token = create_access_token(identity=username)
-        return {'access': access_token, 'username': user['username'], 'clearance': user['clearance']}
+        return {'message': 'ok'}
+        # username = get_jwt_identity()
+        # with db.session() as session:
+        #     find_user_result = session.execute(
+        #         select(User)
+        #         .where(User.username == username)
+        #     ).first()
+        #     if not find_user_result:
+        #         return {'message': f'No user for token'}, 400
+        #     user = package_result(find_user_result)
+        # access_token = create_access_token(identity=username)
+        # return {'access': access_token, 'username': user['username'], 'clearance': user['clearance']}
     
     # using code from https://www.youtube.com/watch?v=aX-ayOb_Aho
     def log_out_user(self):
