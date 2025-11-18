@@ -48,6 +48,6 @@ class UserRouter:
             return self.controller.refresh_user()
         
         @self.app.route("/user/log-out")
-        @jwt_required(skip_revocation_check=True)
+        @jwt_required(optional=True)
         def log_out_user():
             return self.controller.log_out_user()

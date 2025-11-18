@@ -182,6 +182,8 @@ class UserController:
     def log_out_user(self):
         refresh = decode_token(request.cookies.get('refresh'))
         access = get_jwt()
+        print(access)
+        return 'asdf'
         with db.session() as session:
             blocked_access_token = BlockedToken(jti = access['jti'])
             session.add(blocked_access_token)
