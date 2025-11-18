@@ -188,7 +188,6 @@ class UserController:
             access = get_jwt()
         except:
             access = None
-        print(access, refresh)
 
         with db.session() as session:
             if access:
@@ -204,4 +203,4 @@ class UserController:
             tokens_logged_out.append(access['type'])
         if refresh:
             tokens_logged_out.append(refresh['type'])
-        return {'message': f'Token{"s" if len(tokens_logged_out) > 1 else ""} logged out: {tokens_logged_out}'}
+        return {'message': f'{"No t" if len(tokens_logged_out) == 0 else "T"}oken{"s" if len(tokens_logged_out) > 1 else ""} logged out: {tokens_logged_out}'}
