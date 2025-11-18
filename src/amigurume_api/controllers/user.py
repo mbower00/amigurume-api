@@ -184,7 +184,10 @@ class UserController:
             refresh = decode_token(request.cookies.get('refresh'))
         except:
             refresh = None
-        access = get_jwt()
+        try:
+            access = get_jwt()
+        except:
+            access = None
         print(access, refresh)
 
         with db.session() as session:
