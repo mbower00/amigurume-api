@@ -182,12 +182,11 @@ class UserController:
     def log_out_user(self):
         refresh = decode_token(request.cookies.get('refresh'))
         access = get_jwt()
-        print(access)
-        return 'asdf'
         with db.session() as session:
-            blocked_access_token = BlockedToken(jti = access['jti'])
-            session.add(blocked_access_token)
+            if access:
+                blocked_access_token = BlockedToken(jti = access['jti'])
+                session.add(blocked_access_token)
             blocked_refresh_token = BlockedToken(jti = refresh['jti'])
             session.add(blocked_refresh_token)
             session.commit()
-            return {'message': f'{access["type"]} and {refresh["type"]} tokens logged out'}
+            return {'message': f'{access["type"] + ' and ' if access else ''}{refresh["type"]} token{'s' if access else ''} logged out'}
