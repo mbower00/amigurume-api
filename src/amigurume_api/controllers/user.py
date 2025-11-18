@@ -180,14 +180,25 @@ class UserController:
     
     # using code from https://www.youtube.com/watch?v=aX-ayOb_Aho
     def log_out_user(self):
-        refresh = decode_token(request.cookies.get('refresh'))
+        try:
+            refresh = decode_token(request.cookies.get('refresh'))
+        except:
+            refresh = None
         access = get_jwt()
-        print(access)
+        print(access, refresh)
+
         with db.session() as session:
             if access:
                 blocked_access_token = BlockedToken(jti = access['jti'])
                 session.add(blocked_access_token)
-            blocked_refresh_token = BlockedToken(jti = refresh['jti'])
-            session.add(blocked_refresh_token)
+            if refresh:
+                blocked_refresh_token = BlockedToken(jti = refresh['jti'])
+                session.add(blocked_refresh_token)
             session.commit()
-            return {'message': f'{access["type"] + " and " if access else ""}{refresh["type"]} token{"s" if access else ""} logged out'}
+
+        tokens_logged_out = []
+        if access:
+            tokens_logged_out.append(access['type'])
+        if refresh:
+            tokens_logged_out.append(refresh['type'])
+        return {'message': f'Token{"s" if len(tokens_logged_out) > 1 else ""} logged out: {tokens_logged_out}'}
