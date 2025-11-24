@@ -164,8 +164,7 @@ class OrderController:
             if not result.all():
                 return {'message': 'No order updated.'}, 400
         
-        msg_suffix = f'fulfilled on {fulfilled.strftime("%m/%d/%Y %I:%M %p")} UTC' if fulfilled else 'set to unfulfilled'
-        return {'message': f'Order (id: {id}) {msg_suffix}'}
+        return {'fulfilled': fulfilled}
     
     def delete_order(self, id):
         with db.session() as session:

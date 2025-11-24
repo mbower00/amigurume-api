@@ -2,7 +2,7 @@
 # - https://www.youtube.com/watch?v=RcxvrhQKv8I
 # - https://marketplace.visualstudio.com/items?itemName=humao.rest-client
 @host = https://api.amigurume.me
-@access = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MzA1Mjc1MiwianRpIjoiNGFjYTQ3ZTYtNjE0Zi00MWZmLTkxODItZDE3YjU1MWNjY2U3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Im1ib3dlciIsIm5iZiI6MTc2MzA1Mjc1MiwiY3NyZiI6IjdkMmZmOTMzLTUzZTMtNDQzZi1iYzkyLTkzYzBkYjU5NGQwZSIsImV4cCI6MTc2MzA1MzY1Mn0.V9xZbZxa1TU-yVloEYxFAgXsXQQCU4TbJHWa_HxNizc
+@access = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NDAxMTcwMSwianRpIjoiMDM5NDU5NGEtNjdiMy00OGMzLWI4OGMtMWQ5MGQ3M2M0MDAwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Im1ib3dlciIsIm5iZiI6MTc2NDAxMTcwMSwiY3NyZiI6IjM2MWU5N2FkLTFkNjItNDY1OS1iMDI1LTMwZGNkNDdkYmY0OCIsImV4cCI6MTc2NDAxMjYwMX0.jCWEjMfnQ7l2g50AJvo-ab5foDMRVmdrNSNy3r2H9fU
 @refresh = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MzA1MjgzMSwianRpIjoiOTZhZjcxZGEtNjI1NC00YjE0LWIzN2QtMDY0Zjc1ZDg2ODU3IiwidHlwZSI6InJlZnJlc2giLCJzdWIiOiJtYm93ZXIiLCJuYmYiOjE3NjMwNTI4MzEsImNzcmYiOiIyMTYzY2ZkZS02NWY4LTQzYzEtOWZmNy0xMDcyZmI3MjkyYzMiLCJleHAiOjE3NjU2NDQ4MzF9.ntU8u1eQkY8usFqIoe2Nf9wJNekn1uwgTTdq2VqIiZQ
 
 ### ROOT ###
@@ -84,12 +84,12 @@ Authorization: Bearer {{access}}
 Content-Type: application/json
 
 {
-    "name": "Dragon Tail",
+    "name": "Dragon Head",
     "stock": 5,
     "price": 4.99,
     "description": "A green dragon plushie tail.",
     "image_url": "https://picsum.photos/200/300",
-    "type": "tail"
+    "type": "head"
 }
 
 ###
@@ -109,7 +109,7 @@ Authorization: Bearer {{access}}
 
 ### ORDER ###
 # get ALL orders
-get {{host}}/orders?direction=desc&filter=fulfilled
+get {{host}}/orders
 Authorization: Bearer {{access}}
 
 ###
@@ -137,6 +137,16 @@ Content-Type: application/json
     "ordered_products": [
         {
             "id": 1,
+            "quantity": 1
+        },
+        {
+            "id": 2,
+            "quantity": 1
+        },{
+            "id": 3,
+            "quantity": 1
+        },{
+            "id": 4,
             "quantity": 1
         }
     ]
