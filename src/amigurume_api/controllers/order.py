@@ -183,7 +183,7 @@ class OrderController:
                 return {'message': 'No order found to delete.'}, 400
             if not order['fulfilled']:
                 # Get all associated orderProducts
-                order_products_select = session.execute(select(OrderProduct).where(OrderProduct.id == id)).all()
+                order_products_select = session.execute(select(OrderProduct).where(OrderProduct.order_id == id)).all()
                 order_products = package_result(order_products_select)
                 # Restock products
                 for order_product in order_products:
