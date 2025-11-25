@@ -187,7 +187,7 @@ class OrderController:
                 order_products = package_result(order_products_select)
                 # Restock products
                 for order_product in order_products:
-                    product_select = session.execute(select(Product).where(Product.id == order_product["id"])).first()
+                    product_select = session.execute(select(Product).where(Product.id == order_product["product_id"])).first()
                     product = package_result(product_select)
                     new_stock = product["stock"] + order_product["quantity"]
                     print('OP', order_product)
