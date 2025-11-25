@@ -190,9 +190,6 @@ class OrderController:
                     product_select = session.execute(select(Product).where(Product.id == order_product["product_id"])).first()
                     product = package_result(product_select)
                     new_stock = product["stock"] + order_product["quantity"]
-                    print('OP', order_product)
-                    print('P', product)
-                    print('NEW STOCK', new_stock)
                     session.execute(
                         update(Product)
                         .where(Product.id == order_product["product_id"])
