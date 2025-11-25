@@ -195,7 +195,7 @@ class OrderController:
                     print('NEW STOCK', new_stock)
                     session.execute(
                         update(Product)
-                        .where(Product.id == order_product["id"])
+                        .where(Product.id == order_product["product_id"])
                         .values(stock = new_stock)
                     )
                     session.commit()
