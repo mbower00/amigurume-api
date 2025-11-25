@@ -192,7 +192,7 @@ class OrderController:
                     session.execute(
                         update(Product)
                         .where(Product.id == order_product["id"])
-                        .values(stock = product["stock"] + order_products["quantity"])
+                        .values(stock = product["stock"] + order_product["quantity"])
                     )
                     session.commit()
             # Delete all associated orderProducts
