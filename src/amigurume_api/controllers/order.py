@@ -189,11 +189,14 @@ class OrderController:
                 for order_product in order_products:
                     product_select = session.execute(select(Product).where(Product.id == order_product["id"])).first()
                     product = package_result(product_select)
-                    print(order_product)
+                    new_stock = product["stock"] + order_product["quantity"]
+                    print('OP', order_product)
+                    print('P', product)
+                    print('NEW STOCK', new_stock)
                     session.execute(
                         update(Product)
                         .where(Product.id == order_product["id"])
-                        .values(stock = product["stock"] + order_product["quantity"])
+                        .values(stock = new_stock)
                     )
                     session.commit()
             # Delete all associated orderProducts
