@@ -96,7 +96,7 @@ class OrderController:
         ids = []
         for ordered_product in data["ordered_products"]:
             if ordered_product["id"] in ids:
-                return {"message": "Cannot have duplicate products. Use quantity instead."}
+                return {"message": "Cannot have duplicate products. Use quantity instead."}, 400
             ids.append(ordered_product["id"])
 
         username = get_jwt_identity()
