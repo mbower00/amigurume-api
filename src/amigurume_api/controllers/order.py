@@ -91,6 +91,14 @@ class OrderController:
         
     def add_order(self):
         data = request.get_json()
+
+        # ensure there is only one of each product id
+        ids = []
+        for ordered_product in data["ordered_products"]:
+            if ordered_product["id"] in ids:
+                return {"message": "Cannot have duplicate products. Use quantity instead."}
+            ids.append(ordered_product["id"])
+
         username = get_jwt_identity()
         with db.session() as session:
             # check that the user exsists
@@ -168,6 +176,25 @@ class OrderController:
     
     def delete_order(self, id):
         with db.session() as session:
+            # Check if fulfilled
+            order_select = session.execute(select(Order).where(Order.id == id)).first()
+            order = package_result(order_select)
+            if not order:
+                return {'message': 'No order found to delete.'}, 400
+            if not order['fulfilled']:
+                # Get all associated orderProducts
+                order_products_select = session.execute(select(Order).where(Order.id == id)).all()
+                order_products = package_result(order_products_select)
+                # Restock products
+                for order_product in order_products:
+                    product_select = session.execute(select(Product).where(Product.id == order_product["id"])).first()
+                    product = package_result(product_select)
+                    session.execute(
+                        update(Product)
+                        .where(Product.id == order_product["id"])
+                        .values(stock = product["stock"] + order_products["quantity"])
+                    )
+                    session.commit()
             # Delete all associated orderProducts
             session.execute(
                 delete(OrderProduct)
