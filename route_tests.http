@@ -1,8 +1,8 @@
 # using code from 
 # - https://www.youtube.com/watch?v=RcxvrhQKv8I
 # - https://marketplace.visualstudio.com/items?itemName=humao.rest-client
-@host = http://127.0.0.1:5000
-@access = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NDcxMDE4NCwianRpIjoiYzdkNGY1ZWEtZGViYS00NjlmLWEwZGEtNzg5MGQ5MTMzNTkyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Im1ib3dlciIsIm5iZiI6MTc2NDcxMDE4NCwiY3NyZiI6IjY4ODQxNjUzLTUzYzgtNDJhYi1hNTM4LTRkY2M1ZjE1ZTU2MSIsImV4cCI6MTc2NDcxMTA4NH0.YQKspjlZI4kbocFZ1KyXLqYLduxLxY2nUl-Yo2b2bdE
+@host = https://api.amigurume.me
+@access = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NDg4Mjg3MywianRpIjoiMzUxNzE0ZmEtNmUwZi00ZDdlLWIyMDktNmUzOGU4MTYyODliIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Im1ib3dlciIsIm5iZiI6MTc2NDg4Mjg3MywiY3NyZiI6ImU0NmY5MzA2LWM1NWItNDQyOC1iZGFkLTEyZGM4M2Y1MTMyMSIsImV4cCI6MTc2NDg4Mzc3M30.SFIljwl4K_AXEIC5fibCxaB9kROr4tGXQ8kR_iPoza4
 @refresh = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MzA1MjgzMSwianRpIjoiOTZhZjcxZGEtNjI1NC00YjE0LWIzN2QtMDY0Zjc1ZDg2ODU3IiwidHlwZSI6InJlZnJlc2giLCJzdWIiOiJtYm93ZXIiLCJuYmYiOjE3NjMwNTI4MzEsImNzcmYiOiIyMTYzY2ZkZS02NWY4LTQzYzEtOWZmNy0xMDcyZmI3MjkyYzMiLCJleHAiOjE3NjU2NDQ4MzF9.ntU8u1eQkY8usFqIoe2Nf9wJNekn1uwgTTdq2VqIiZQ
 
 ### ROOT ###
@@ -138,11 +138,7 @@ Content-Type: application/json
         {
             "id": 1,
             "quantity": 2
-        },
-        {
-            "id": 2,
-            "quantity": 1
-        },
+        }
     ]
 }
 
