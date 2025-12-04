@@ -106,8 +106,9 @@ class UserController:
             'email': user['email'],
             'access': access_token,
         })
-        # using code copied from chatGPT https://chatgpt.com/c/691342fc-371c-832d-8eb1-71fcadf5972f
-        res.set_cookie('refresh', refresh_token, samesite='None', secure=True, httponly=True)
+        # DEVTODO: May need to get rid of the domain arg for dev
+        # using code copied from chatGPT https://chatgpt.com/c/691342fc-371c-832d-8eb1-71fcadf5972f and https://chatgpt.com/c/6931f18d-5adc-832b-9dfd-92684712c285
+        res.set_cookie('refresh', refresh_token, samesite='None', secure=True, domain=".amigurume.me", httponly=True)
         return res
     
     def log_in_user(self):
