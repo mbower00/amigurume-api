@@ -1,9 +1,12 @@
 # using code from https://www.youtube.com/watch?v=aX-ayOb_Aho
+# using code from https://www.youtube.com/watch?v=d4CZf0QrY7kc
+# using code from Gemini Cloud Assist chat
 
 from flask import request
 from sqlalchemy import delete, select, update
 from src.amigurume_api.utils import package_result, get_order_by, get_direction
-from src.amigurume_api.db import Product, ProductType, db, OrderProduct
+from src.amigurume_api.db import ImageName, Product, ProductType, db, OrderProduct
+from google.cloud import storage
 
 class ProductController:
     def __init__(self):
@@ -51,6 +54,35 @@ class ProductController:
             session.add(product)
             session.commit()
             return {"id": product.id}
+        
+    # using code from:
+    # - https://www.youtube.com/watch?v=d4CZf0QrY7kc
+    # - Gemini Cloud Assist chat
+    def add_product_image(self):
+        image = request.files.get('image')
+
+        # ensure correct type
+        if not (image.filename.rsplit('.', 1)[1] in ['png', 'jpg', 'jpeg']):
+            return {'message': 'File must be .png, .jpg, or .jpeg'}
+
+        # create name
+        with db.session() as session:
+            image_name = ImageName()
+            session.add(image_name)
+            session.commit()
+            file_name = f'{image_name.id}{image.filename}'
+        
+        try:
+            storage_client = storage.Client()
+            gcs_bucket = storage_client.bucket('amigurume')
+            blob = gcs_bucket.blob(file_name)
+            blob.upload_from_file(image.stream, content_type=image.content_type)
+            url = blob.public_url
+        except Exception as e:
+            print(e)
+            return {'message': f'Failed to add {image.filename}'}, 500
+
+        return {'image_url': url} 
     
     def update_product(self, id):
         data = request.get_json()

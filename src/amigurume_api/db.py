@@ -47,6 +47,9 @@ class OrderProduct(db.Model):
     order_id = mapped_column(ForeignKey("order.id"))
     order = relationship('Order', back_populates="cart")
 
+class ImageName(db.Model):
+    id: Mapped[int] = mapped_column(primary_key=True)
+
 # using code from https://www.youtube.com/watch?v=aX-ayOb_Aho
 class BlockedToken(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)

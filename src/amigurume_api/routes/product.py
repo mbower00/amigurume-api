@@ -39,6 +39,13 @@ class ProductRouter:
                 return self.controller.add_product()
             return {'message': 'Admin clearance required'}, 400
         
+        @self.app.route("/product/image", methods=["POST"])
+        @jwt_required()
+        def add_product_image():
+            if check_clearance(get_jwt_identity()):
+                return self.controller.add_product_image()
+            return {'message': 'Admin clearance required'}, 400
+        
         @self.app.route("/product/<int:id>", methods=["PATCH"])
         @jwt_required()
         def update_product(id):
