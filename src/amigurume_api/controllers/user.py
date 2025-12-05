@@ -100,12 +100,12 @@ class UserController:
             access_token = create_access_token(identity=user.username)
             refresh_token = create_refresh_token(identity=user.username)
 
-        res = make_response({
-            'id': user['id'],
-            'username': user['username'],
-            'email': user['email'],
-            'access': access_token,
-        })
+            res = make_response({
+                'id': user.id,
+                'username': user.username,
+                'email': user.email,
+                'access': access_token,
+            })
         # DEVTODO: May need to get rid of the domain arg for dev
         # using code copied from chatGPT https://chatgpt.com/c/691342fc-371c-832d-8eb1-71fcadf5972f and https://chatgpt.com/c/6931f18d-5adc-832b-9dfd-92684712c285
         # res.set_cookie('refresh', refresh_token, samesite='None', secure=True, domain=".amigurume.me", httponly=True)
