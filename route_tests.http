@@ -17,8 +17,14 @@ Content-Type: application/json
 {
     "email": "mitchell@bowermail.com",
     "password": "d3mon$tration",
-    "username": "mbower"
+    "username": "user2"
 }
+
+# {
+#     "email": "mitchell@bowermail.com",
+#     "password": "d3mon$tration",
+#     "username": "mbower"
+# }
 
 # Use this to make admin at first:
 #    update "user" set clearance = 'admin' where id = 1;

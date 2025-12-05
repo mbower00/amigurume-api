@@ -96,9 +96,9 @@ class UserController:
             session.add(user)
             session.commit()
             
-        # create tokens
-        access_token = create_access_token(identity=user.username)
-        refresh_token = create_refresh_token(identity=user.username)
+            # create tokens
+            access_token = create_access_token(identity=user.username)
+            refresh_token = create_refresh_token(identity=user.username)
 
         res = make_response({
             'id': user['id'],
