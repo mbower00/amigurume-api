@@ -145,6 +145,7 @@ class UserController:
         res = make_response({
             'username': user['username'],
             'clearance': user['clearance'],
+            'email': user['email'],
             'access': access_token,
         })
         # using code copied from chatGPT https://chatgpt.com/c/691342fc-371c-832d-8eb1-71fcadf5972f
