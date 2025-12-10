@@ -179,7 +179,7 @@ class UserController:
                 return {'message': 'No user for token'}, 400
             user = package_result(find_user_result)
         access_token = create_access_token(identity=username)
-        return {'access': access_token, 'username': user['username'], 'clearance': user['clearance']}
+        return {'access': access_token, 'username': user['username'], 'email': user['email'], 'clearance': user['clearance']}
     
     # using code from https://www.youtube.com/watch?v=aX-ayOb_Aho
     def log_out_user(self):
