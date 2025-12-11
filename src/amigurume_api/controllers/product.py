@@ -39,6 +39,7 @@ class ProductController:
 
     def add_product(self):
         data = request.get_json()
+        formatted_type = data["type"].lower().strip()
         with db.session() as session:
             type_id = self._add_or_find_type(session, data['type'])
 
@@ -53,7 +54,7 @@ class ProductController:
             )
             session.add(product)
             session.commit()
-            return {"id": product.id}
+            return {"id": product.id, "type": formatted_type}
         
     # using code from:
     # - https://www.youtube.com/watch?v=d4CZf0QrY7kc
@@ -87,6 +88,7 @@ class ProductController:
     def update_product(self, id):
         data = request.get_json()
         data['id'] = id
+        formatted_type = data["type"].lower().strip()
         with db.session() as session:
             # handle no such id
             if not session.execute(
@@ -101,7 +103,7 @@ class ProductController:
             # update
             session.execute(update(Product), [data])
             session.commit()
-            return {'message': f'Updated product (id: {id})'}
+            return {'id': id, 'type': formatted_type}
     
     def delete_product(self, id):
         with db.session() as session:
