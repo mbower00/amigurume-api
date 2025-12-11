@@ -12,25 +12,16 @@ class ProductRouter:
 
     def create_all(self):
         @self.app.route("/products")
-        @jwt_required()
         def get_all_products():
-            if check_clearance(get_jwt_identity(),  ['user', 'admin']):
-                return self.controller.get_all_products()
-            return {'message': 'Admin or user clearance required'}, 400
-
+            return self.controller.get_all_products()
+        
         @self.app.route("/product/types")
-        @jwt_required()
         def get_product_types():
-            if check_clearance(get_jwt_identity(), ['user', 'admin']):
-                return self.controller.get_product_types()
-            return {'message': 'Admin or user clearance required'}, 400
+            return self.controller.get_product_types()
         
         @self.app.route("/product/<int:id>")
-        @jwt_required()
         def get_product(id):
-            if check_clearance(get_jwt_identity(), ['user', 'admin']):
-                return self.controller.get_product(id)
-            return {'message': 'Admin or user clearance required'}, 400
+            return self.controller.get_product(id)
         
         @self.app.route("/product", methods=["POST"])
         @jwt_required()
