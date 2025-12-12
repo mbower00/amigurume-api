@@ -88,7 +88,10 @@ class ProductController:
     def update_product(self, id):
         data = request.get_json()
         data['id'] = id
-        formatted_type = data["type"].lower().strip()
+        try:
+            formatted_type = data["type"].lower().strip()
+        except KeyError:
+            formatted_type = None
         with db.session() as session:
             # handle no such id
             if not session.execute(

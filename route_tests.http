@@ -2,7 +2,7 @@
 # - https://www.youtube.com/watch?v=RcxvrhQKv8I
 # - https://marketplace.visualstudio.com/items?itemName=humao.rest-client
 @host = https://api.amigurume.me
-@access = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NTQwOTU1OCwianRpIjoiMzUxMDJmMWYtYzFiNC00MWNjLTlhNDMtMTI5YjQwMjU5YzBmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Im1ib3dlciIsIm5iZiI6MTc2NTQwOTU1OCwiY3NyZiI6IjExZmIwYWJiLWI2ZDEtNDQwMi04ODM4LWQ3MzY4NzM5ODYwMiIsImV4cCI6MTc2NTQxMDQ1OH0.7-5lwfAIIrCZXoAdAPcGtwQMPAiW-FMQwndFCl7hPWA
+@access = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NTU2NjQ3OSwianRpIjoiZThiMjZjOTItODljMS00ZDJiLThkMWMtMDY5MDNhYzRjNjdlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Im1ib3dlciIsIm5iZiI6MTc2NTU2NjQ3OSwiY3NyZiI6ImFmNTY0OTY5LTg3NmItNGI3NC04ZGY3LTcxZTVjYWM4MTQ0MiIsImV4cCI6MTc2NTU2NzM3OX0.KF9CD2uajeWI6055ZYbY8HSig96HvfCX46ytJLU_5HE
 @refresh = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MzA1MjgzMSwianRpIjoiOTZhZjcxZGEtNjI1NC00YjE0LWIzN2QtMDY0Zjc1ZDg2ODU3IiwidHlwZSI6InJlZnJlc2giLCJzdWIiOiJtYm93ZXIiLCJuYmYiOjE3NjMwNTI4MzEsImNzcmYiOiIyMTYzY2ZkZS02NWY4LTQzYzEtOWZmNy0xMDcyZmI3MjkyYzMiLCJleHAiOjE3NjU2NDQ4MzF9.ntU8u1eQkY8usFqIoe2Nf9wJNekn1uwgTTdq2VqIiZQ
 
 ### ROOT ###
@@ -147,6 +147,22 @@ Content-Type: application/json
         },
         {
             "id": 2,
+            "quantity": 2
+        }
+        {
+            "id": 3,
+            "quantity": 1
+        },
+        {
+            "id": 4,
+            "quantity": 2
+        }
+        {
+            "id": 10,
+            "quantity": 1
+        },
+        {
+            "id": 7,
             "quantity": 2
         }
     ]
