@@ -122,7 +122,7 @@ class OrderController:
                     return {"message": f"Product (id: {ordered_product['id']}) not found"}, 400
                 product = package_result(product_result)
                 if ordered_product['quantity'] > product['stock']:
-                    return {"message": f"Not enough product (id: {ordered_product['id']}) in stock (in stock: {product['stock']}, ordered: {ordered_product['quantity']})" }, 400
+                    return {"message": f"Not enough '{product['name']}' in stock. In stock: {product['stock']} Ordered: {ordered_product['quantity']}" }, 400
                 else:
                     # store new stock for below update
                     ordered_product['new_stock'] = product['stock'] - ordered_product['quantity']
