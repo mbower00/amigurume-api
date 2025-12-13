@@ -29,10 +29,11 @@ class ProductController:
         order_by = get_order_by(request, Product)
         direction = get_direction(request)
         with db.session() as session:
+            product = Product()
             result = session.execute(
                 select(Product, ProductType.type)
                 .join(ProductType, Product.product_type_id == ProductType.id)
-                .where(Product.id in ids)
+                .where(Product.id.in_(ids))
                 .order_by(getattr(getattr(Product, order_by), direction)())
             ).all()
             return package_result(result, ['type'])
