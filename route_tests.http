@@ -76,7 +76,7 @@ Authorization: Bearer {{access}}
 ###
 
 # get all from ids
-get {{host}}/products/from
+patch {{host}}/products/from
 Content-Type: application/json
 
 {

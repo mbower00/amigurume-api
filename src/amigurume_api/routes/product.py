@@ -15,7 +15,8 @@ class ProductRouter:
         def get_all_products():
             return self.controller.get_all_products()
         
-        @self.app.route("/products/from")
+        # with help from ChatGPT. It said that using get was a problem. https://chatgpt.com/c/691342fc-371c-832d-8eb1-71fcadf5972f
+        @self.app.route("/products/from", methods=["PATCH"])
         def get_all_products_from():
             return self.controller.get_all_products_from()
         
