@@ -76,7 +76,7 @@ Authorization: Bearer {{access}}
 ###
 
 # get all from ids
-get {{host}}/products?direction=desc
+get {{host}}/products/from
 Authorization: Bearer {{access}}
 
 {
