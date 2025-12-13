@@ -81,7 +81,7 @@ Content-Type: application/json
 Authorization: Bearer {{access}}
 
 {
-    "ids": [1,2,3]
+    "ids": [1,2]
 }
 
 ###

@@ -25,7 +25,6 @@ class ProductController:
         
     def get_all_products_from(self):
         ids = request.get_json()['ids']
-        print(ids)
         order_by = get_order_by(request, Product)
         direction = get_direction(request)
         with db.session() as session:
