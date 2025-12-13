@@ -23,6 +23,19 @@ class ProductController:
             ).all()
             return package_result(result, ['type'])
         
+    def get_all_products_from(self):
+        ids = request.get_json()['ids']
+        order_by = get_order_by(request, Product)
+        direction = get_direction(request)
+        with db.session() as session:
+            result = session.execute(
+                select(Product, ProductType.type)
+                .join(ProductType, Product.product_type_id == ProductType.id)
+                .where(Product.id in ids)
+                .order_by(getattr(getattr(Product, order_by), direction)())
+            ).all()
+            return package_result(result, ['type'])
+        
     def get_product_types(self):
         with db.session() as session:
             result = session.execute(select(ProductType)).all()

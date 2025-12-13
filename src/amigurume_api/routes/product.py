@@ -15,6 +15,10 @@ class ProductRouter:
         def get_all_products():
             return self.controller.get_all_products()
         
+        @self.app.route("/products/from")
+        def get_all_products_from():
+            return self.controller.get_all_products_from()
+        
         @self.app.route("/product/types")
         def get_product_types():
             return self.controller.get_product_types()
