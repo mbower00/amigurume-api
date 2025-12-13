@@ -29,7 +29,7 @@ class ProductController:
         order_by = get_order_by(request, Product)
         direction = get_direction(request)
         with db.session() as session:
-            product = Product()
+            # using code from https://docs.sqlalchemy.org/en/20/orm/quickstart.html#simple-select
             result = session.execute(
                 select(Product, ProductType.type)
                 .join(ProductType, Product.product_type_id == ProductType.id)
