@@ -17,7 +17,7 @@ def create_app():
     app = Flask(__name__)
 
     # using code copied from chatGPT https://chatgpt.com/c/691342fc-371c-832d-8eb1-71fcadf5972f
-    CORS(app, origins=["https://admin.amigurume.me", "https://amigurume.me"], supports_credentials=True)
+    CORS(app, origins=["https://admin.amigurume.me", "https://user.amigurume.me"], supports_credentials=True)
     # DEVTODO: change this for admin frontend dev
     # using code copied from chatGPT https://chatgpt.com/c/691342fc-371c-832d-8eb1-71fcadf5972f
     # CORS(app, origins=["https://admin.amigurume.me", "http://localhost:5173"], supports_credentials=True)
